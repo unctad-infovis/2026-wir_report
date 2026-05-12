@@ -10,8 +10,8 @@
     "lint:fix": "biome check --write src",
     "login": "az login --service-principal -u $AZURE_USER -p $AZURE_PW --tenant $AZURE_TENANT",
     "push": "git push && git push unctad main",
-    "sync-gh-pages": "git subtree push --prefix public origin gh-pages",
-    "sync-prod": "azcopy copy \"public/*\" \"https://${AZURE_STORAGE_NAME}.blob.core.windows.net/\\$web/${npm_package_name}/\" --include-path 'js;css;assets' --recursive --exclude-pattern '.DS_Store'"
+    "sync-gh-pages": "git subtree push --prefix dist origin gh-pages",
+    "sync-prod": "azcopy copy \"dist/*\" \"https://${AZURE_STORAGE_NAME}.blob.core.windows.net/\\$web/${npm_package_name}/\" --include-path 'js;css;assets' --recursive --exclude-pattern '.DS_Store'"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.14",
