@@ -1,5 +1,5 @@
 {
-  "name": "2026-wir_report2",
+  "name": "2026-wir_report",
   "version": "1.0.0",
   "scripts": {
     "build": "vite build",

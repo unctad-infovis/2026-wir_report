@@ -1,6 +1,6 @@
-# 2026-wir_report2
+# 2026-wir_report
 
-**Live demo** https://unctad-infovis.github.io/2026-wir_report2/
+**Live demo** https://unctad-infovis.github.io/2026-wir_report/
 
 ## Rights of usage
 
