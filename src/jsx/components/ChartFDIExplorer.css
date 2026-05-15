@@ -1,0 +1,265 @@
+#app-root-2026-wir_report .app {
+  figure.container_chart_fdi_explorer_wrapper {
+    background-color: #111;
+    box-sizing: border-box;
+    padding: 0 10px;
+    position: relative;
+    width: 100%;
+    z-index: 3;
+    .fdi_scrolly_texts {
+      box-sizing: border-box;
+      left: 50%;
+      max-width: 700px;
+      padding: 0 10px;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      z-index: 3;
+      .fdi_scrolly_text {
+        align-items: center;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        p {
+          color: #fff;
+          font-size: var(--un-font-size-xxxl);
+          font-weight: var(--un-font-weight-boldest);
+          line-height: 1.2;
+          text-align: center;
+        }
+      }
+    }
+    .container_chart_fdi_explorer {
+      display: flex;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      .layout {
+        color: #fff;
+        display: flex;
+        margin: auto auto;
+        max-width: 1200px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        .left_container,
+        .right_container {
+          h4 {
+            display: inline-block;
+            font-size: var(--un-font-size-xl);
+            font-weight: var(--un-font-weight-boldest);
+            line-height: var(--un-line-height-normal);
+            margin: 0;
+            padding: 0;
+          }
+          > div {
+            box-sizing: border-box;
+            margin: 10px 5px;
+          }
+          &.left_container {
+            max-width: 240px;
+            min-width: 240px;
+            .name_container {
+              display: block;
+              margin-bottom: 30px;
+            }
+            .country_selection_container {
+              .search_container {
+                margin: 0 0 20px 0;
+                input {
+                  border-radius: 4px;
+                  border: 1px solid #ccc;
+                  box-sizing: border-box;
+                  outline: none;
+                  padding: 5px 7px 3px 7px;
+                  transition:
+                    border-color ease-in-out 0.15s,
+                    box-shadow ease-in-out 0.15s;
+                  width: 100%;
+                }
+              }
+              h5 {
+                font-size: var(--un-font-size-xs);
+                line-height: var(--un-line-height-normal);
+                margin: 0 0 5px 0;
+              }
+              .selection_list {
+                font-size: var(--un-font-size-xxs);
+                height: 340px;
+                line-height: var(--un-line-height-normal);
+                list-style-type: none;
+                margin: 0;
+                overflow-x: hidden;
+                overflow-y: scroll;
+                padding: 0;
+                label {
+                  cursor: pointer;
+                  display: block;
+                  font-weight: var(--un-font-weight-normal);
+                  margin: 0;
+                  .input_container {
+                    vertical-align: middle;
+                  }
+                  .label_container {
+                    margin-left: 3px;
+                    vertical-align: middle;
+                  }
+                }
+              }
+            }
+          }
+          &.right_container {
+            min-width: 730px;
+            width: 100%;
+            .title_container {
+              .options_container {
+                float: right;
+                margin-top: -1px;
+                label {
+                  display: inline-block;
+                  margin-right: 20px;
+                }
+                .button_group {
+                  border-left: 1px solid #ccc;
+                  display: inline-block;
+                  height: 20px;
+                  margin: 0 5px;
+                  vertical-align: middle;
+                }
+                .button_container {
+                  button {
+                    background-color: var(--un-color-grey);
+                    border: 0;
+                    color: #fff;
+                    cursor: pointer;
+                    font-size: var(--un-font-size-xxs);
+                    letter-spacing: 0.05em;
+                    line-height: var(--un-line-height-normal);
+                    margin: 0 3px;
+                    padding: 5px 7px 3px 7px;
+                    text-transform: uppercase;
+                    &:hover {
+                      transform: scale(1.05);
+                    }
+                    &.selected {
+                      background-color: var(--un-color-blue);
+                      cursor: default;
+                      font-weight: var(--un-font-weight-bold);
+                      &:hover {
+                        transform: scale(1);
+                      }
+                    }
+                    &.linearlogarithmic {
+                      display: inline;
+                    }
+                    &.data_type {
+                      display: inline;
+                    }
+                  }
+                }
+              }
+            }
+            .chart_container {
+              max-width: 100%;
+              min-height: 500px;
+              overflow: hidden;
+              position: relative;
+              width: 100%;
+              hr {
+                border-color: #eeeeee;
+                border-style: solid;
+                border-width: 1px 0 0 0;
+                margin: 0.5em 0;
+              }
+              .info {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                min-height: 440px;
+                text-align: center;
+                vertical-align: middle;
+              }
+              .unctad_logo {
+                bottom: 10px;
+                height: 80px;
+                position: absolute;
+                right: 10px;
+                width: 80px;
+                z-index: 3;
+              }
+              .highchart_container {
+                min-height: 440px;
+                width: 100%;
+                .tooltip_container {
+                  .tooltip_header {
+                    color: #000;
+                    font-size: var(--un-font-size-normal);
+                    margin: 0 0 5px 0;
+                    padding: 0;
+                  }
+                  .tooltip_label {
+                    font-size: var(--un-font-size-xxs);
+                    font-weight: var(--un-font-weight-bold);
+                    line-height: var(--un-line-height-normal);
+                  }
+                  .tooltip_value {
+                    font-size: var(--un-font-size-xxs);
+                    font-weight: var(--un-font-weight-normal);
+                    line-height: var(--un-line-height-normal);
+                  }
+                }
+                .highcharts-button-symbol {
+                  stroke: #000;
+                }
+                .highcharts-button-hover {
+                  rect {
+                    fill: #fff;
+                  }
+                  .highcharts-button-symbol {
+                    stroke: var(--un-color-grey);
+                  }
+                }
+              }
+              .legend_container {
+                height: 20px;
+                margin-bottom: 10px;
+                overflow-x: hidden;
+                overflow-y: scroll;
+                padding-right: 70px;
+                .legend_button {
+                  background-color: transparent;
+                  border: 0;
+                  cursor: pointer;
+                  display: inline-block;
+                  font-size: var(--un-font-size-xxs);
+                  font-weight: var(--un-font-weight-normal);
+                  line-height: var(--un-line-height-normal);
+                  svg {
+                    height: 23px;
+                    vertical-align: middle;
+                    width: 18px;
+                  }
+                }
+              }
+            }
+            .source_container {
+              color: var(--un-color-grey-text);
+              font-size: var(--un-font-size-xxs);
+              font-weight: var(--un-font-weight-normal);
+              line-height: var(--un-line-height-normal);
+              margin-bottom: 5px;
+              a {
+                color: var(--un-color-blue-text);
+                text-decoration: underline;
+              }
+              a:hover {
+                text-decoration: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

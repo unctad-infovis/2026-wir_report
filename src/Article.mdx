@@ -1,0 +1,183 @@
+<Header 
+  bg_image_url="https://picsum.photos/1600/900"
+  chapters={props.meta.chapters}
+  full_report_url={props.meta.full_report_url}
+  overview_url={props.meta.overview_url}
+  subtitle={props.meta.subtitle}
+  title={props.meta.title}
+  year={<span>20<span>25</span></span>}
+/>
+
+{
+/*********************************************
+*************** INTRO ************************
+**********************************************/
+}
+
+<div className="container_chapter">
+  #### Global foreign direct investment (FDI) fell by 11% to $1.5 trillion in 2024, marking the second straight year of decline. 
+
+  While the overall data shows a 4% rise, it masks deep underlying weaknesses. The apparent growth was inflated by volatile financial conduit flows through several European economies, which often serve as transfer points for investments.
+
+  **The outlook for 2025 has turned negative.** Modest growth seemed possible at the start of the year, but escalating trade tensions, geopolitical fragmentation and economic volatility have led to sharp downward revisions of most FDI prospects. These include GDP growth, capital formation, trade flows, financial market stability and investor confidence. Early 2025 data show record-low deal and project activity.
+
+  The World Investment Report calls for bold, coordinated action to redirect investment towards sustainable and inclusive development – with a sharp focus on bridging divides in digital economy, infrastructure and sustainable finance.
+
+  <Quote 
+    name="Rebeca Grynspan"
+    text="Investment is more than just capital flows and project pipelines. It’s a signal of where we’re placing our bets as a society." 
+    title="Secretary-General of UN Trade and Development (UNCTAD)"
+  />
+</div>
+
+<ProgressBar selector=".container_chapters" />
+<BackToTop selector=".container_header" />
+
+
+
+{
+/*********************************************
+*************** CHAPTER 1 ********************
+**********************************************/
+}
+
+<div className="container_chapters">
+  <SideScrollingText header="Chapter 1" texts={['Where is foreign investment going?', 'Which regions and sectors are being left behind?']} />
+
+  <div className="container_chapter">
+    <HeaderChapter
+      image_url={props.meta.chapters[0].image_url}
+      pdf_url={props.meta.chapters[0].pdf_url}
+      subtitle={props.meta.chapters[0].subtitle}
+      title={props.meta.chapters[0].title}
+    />
+
+    ### Despite the headline rise in FDI in 2024, the real story is one of declining flows and growing imbalances.
+
+    High borrowing costs and exchange rate volatility continue to deter long-term infrastructure investment, especially in the least developed countries.
+
+    And multinationals are restructuring supply chains towards South-East Asia, Eastern Europe and Central America – a shift that began during the pandemic and is accelerating.
+
+    ### Regional trends reveal sharp divides.
+
+    **FDI to developed economies fell by 22%.**
+
+    **Europe** was hit hardest, with inflows down 58% in 2024. FDI fell in more than half of EU countries, with sharp declines in Germany (-89%), Spain (-39%), Italy (-24%) and France (-20%).
+
+    **North America** saw a 23% rise, driven by a wave of semiconductor megaprojects in the United States, where FDI rose 20%.
+
+    <ChartDataWrapper chart_id="pJGcF" />
+
+    **Africa** saw a record 75% rise in FDI, driven by a mega infrastructure project in Egypt. Excluding that, flows still grew 12%, supported by investment reforms and improved facilitation across the continent.
+
+    <ChartDataWrapper chart_id="" />
+
+    **Asia** remained the top recipient region, despite a 3% overall decline and a 29% drop in flows to China. South-East Asia stood out, with ASEAN countries up 10%, reaching a record $225 billion in FDI. India saw strong momentum in greenfield investment, even as total inflows dipped slightly.
+
+    <ChartDataWrapper chart_id="" />
+
+    **The Middle East** continued to see strong inflows, especially in the Gulf, thanks to diversification efforts and investment in non-oil sectors.
+
+    **Latin America and the Caribbean** saw a 12% drop in FDI. But new greenfield projects in Argentina, Brazil and Mexico signalled renewed investor interest and growing momentum in productive sectors.
+
+    <ChartDataWrapper chart_id="" />
+
+    **Vulnerable economies** saw modest gains. FDI to **least developed countries** rose 9% to $37 billion – just 2% of global flows. **Landlocked developing countries** saw a 10% drop, while **small island developing states** posted 14% growth. In all three groups, FDI remains concentrated among a few countries.
+
+    <ChartDataWrapper chart_id="" />
+
+    ### Top 10 source and destination economies for FDI.
+
+    The US remains both the top source and destination for foreign direct investment (FDI). Notably, five Asian economies rank among the top 10 sources of FDI outflows, underscoring the region’s key role as a global investor.
+
+    <ChartDataWrapper chart_id="" />
+    <ChartDataWrapper chart_id="" />
+
+    ### Investment trends diverge across sectors and industries.
+
+    **Greenfield investments** – where companies build new facilities abroad – rose in number but fell 5% in value. Still, total announced investment remained historically high at $1.3 trillion.
+
+    **Cross-border mergers and acquisitions (M&As)** rose 14% to $443 billion but remain below the average of the last decade. Deals are increasingly shifting to regional markets amid tighter regulations and geopolitical tensions.
+
+    **International project finance** – a key source of funding for infrastructure – dropped 26%, continuing a multi-year slump. Least developed countries were hit hardest.
+
+    <div className="width_wide">
+      <div className="two_column">
+        <ChartDataWrapper chart_id="NTw3G" />
+        <ChartDataWrapper chart_id="H2PWT" />
+      </div>
+    </div>
+
+    <ChartDataWrapper chart_id="" />
+
+    **Sectors critical to the Sustainable Development Goals suffered.** Investment flows to developing countries for infrastructure fell 35%, renewable energy 31%, water and sanitation 30% and agrifood systems 19%. Only the health sector saw growth. Projects rose by about one fifth in number and value, but total volumes remained small – under $15 billion.
+
+    <ChartDataWrapper chart_id="" />
+  </div>
+
+  <div className="width_100vw height_100vh anchor_fdi_explorer">
+    <ChartFDIExplorer
+      introTexts={[
+        'This chart lets you explore foreign direct investment flows.',
+        'Choose a region or economy to compare trends.',
+      ]}
+    />
+  </div>
+
+
+  {
+  /*********************************************
+  *************** CHAPTER 2 ********************
+  ***
+  * *******************************************/
+  }
+  <SideScrollingText 
+    header="Chapter 2" 
+    texts={[
+      'Where is foreign investment going?',
+      'Which regions and sectors are being left behind?',
+      ]}
+    />
+
+  <div className="container_chapter">
+    <HeaderChapter 
+      image_url={props.meta.chapters[1].image_url}
+      pdf_url={props.meta.chapters[1].pdf_url}
+      subtitle={props.meta.chapters[1].subtitle}
+      title={props.meta.chapters[1].title}
+    />
+    ### In 2024, investment policymaking was pulled in two directions: the need to attract capital, and the pressure to protect national interests.
+
+    Roughly 78% of new measures were labelled as favourable to investors – especially in developing countries (89%).
+
+    <ChartDataWrapper chart_id="" />
+
+    <ChartDataWrapper chart_id="" />
+
+    **Africa and Asia** focused on investment facilitation, such as single windows and fast-track permitting, and liberalization like lifting foreign ownership caps and relaxing joint venture requirements.
+
+    **Latin America** launched targeted promotion strategies, including in emerging sectors like green hydrogen.
+
+    ### Incentives such as tax breaks now dominate global investment policy.
+
+    Incentives are now the leading tool governments use to attract and steer capital where they want it. These include fiscal incentives like tax breaks and financial ones like grants and subsidies.
+
+    In 2024, they accounted for 45% of all new measures favourable to investors – most notably in clean energy and industrial sectors.
+
+    <ChartDataWrapper chart_id="" />
+
+    ### Meanwhile, restrictions tightened in strategic sectors – especially in developed economies.
+
+    More than 40% of all restrictive measures in 2024 concerned screening mechanisms, aimed at monitoring foreign investment in sensitive sectors like high-tech and critical minerals.
+
+    The number of countries with FDI screening regimes for national security has more than doubled to 46 since 2015.
+
+    <ChartDataWrapper chart_id="" />
+
+    <ChartDataWrapper chart_id="" />
+
+    **National security considerations** prompted the US to introduce restrictions on certain outward investment and led the European Commission to recommend that EU member countries monitor outward investment in critical technologies.
+
+    The America First Investment Policy adopted in February 2025 significantly expands the scope of screening for both inward and outward investment.
+  </div>
+</div>
