@@ -1,11 +1,11 @@
 /* Utility */
-.hidden {
+#app-root-__PROJECT_NAME__ .hidden {
   display: none;
 }
-.nowrap {
+#app-root-__PROJECT_NAME__ .nowrap {
   white-space: nowrap;
 }
-.warning {
+#app-root-__PROJECT_NAME__ .warning {
   align-items: center;
   border: 5px solid var(--un-color-red);
   box-sizing: border-box;

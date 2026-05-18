@@ -2,6 +2,6 @@ import { createRoot } from 'react-dom/client';
 
 import App from './App.jsx';
 
-const container = document.getElementById('app-root-2026-wir_report');
+const container = document.getElementById('app-root-__PROJECT_NAME__');
 const root = createRoot(container);
 root.render(<App />);
