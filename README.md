@@ -27,6 +27,12 @@ All source code goes to folder `src`.
 
 The following packages are used in this project by default.
 
+### Project specific
+
+* **highcharts** - used to create the FDI Explorer 
+* **react-is-visible** - used to check if an element is in the viewport
+* **uuid4** - used to create unique IDs
+
 ### Build & Dev Server
 
 * **vite** — development server with hot module replacement and production bundler, replaces webpack
