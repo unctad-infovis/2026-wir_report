@@ -66,9 +66,6 @@
             max-width: 350px;
           }
         }
-        .share_wrapper {
-          box-shadow: 0 0 10px #000;
-        }
         .container_button_download {
           display: inline-block;
           p {

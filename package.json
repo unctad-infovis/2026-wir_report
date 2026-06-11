@@ -25,7 +25,9 @@
   },
   "dependencies": {
     "highcharts": "^12.6.0",
-    "react-is-visible": "^1.2.0",
     "uuid4": "^2.0.3"
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true
   }
 }

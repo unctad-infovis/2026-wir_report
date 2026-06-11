@@ -18,8 +18,7 @@ import HeaderChapter from './components/minisite/HeaderChapter.jsx';
 import SideScrollingText from './components/minisite/SideScrollingText.jsx';
 
 import './../styles/styles.css';
-
-import meta from './../meta.json';
+import './components/minisite/minisite.css';
 
 const components = {
   BackToTop,
@@ -33,7 +32,7 @@ const components = {
   SideScrollingText
 };
 
-const App = () => {
+const App = ({ meta }) => {
   const appRef = useRef();
 
   useEffect(() => {

@@ -12,7 +12,7 @@
     margin-right: 50px;
     position: sticky;
     text-align: right;
-    top: calc(100dvh - 65px);
+    top: calc(100svh - 65px);
     z-index: 15;
     button {
       background-color: var(--un-color-yellow);
@@ -41,12 +41,12 @@
 @keyframes app_root_2026_wir_report_bounce2 {
   0%,
   100% {
-    top: calc(100dvh - 65px);
+    top: calc(100svh - 65px);
   }
   5% {
-    top: calc(100dvh - 70px);
+    top: calc(100svh - 70px);
   }
   10% {
-    top: calc(100dvh - 75px);
+    top: calc(100svh - 75px);
   }
 }

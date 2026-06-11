@@ -3,7 +3,7 @@ import ButtonShare from './../general/ButtonShare.jsx';
 
 import './Header.css';
 
-function Header({ bg_image_url, chapters, full_report_url, overview_url, subtitle, title, year }) {
+function Header({ bg_image_url, chapters, full_report_url, overview_url, subtitle, title, year, url }) {
   return (
     <div className="container_header_wrapper" style={{ backgroundImage: `url(${bg_image_url})` }}>
       <div className="container_header">
@@ -15,8 +15,8 @@ function Header({ bg_image_url, chapters, full_report_url, overview_url, subtitl
         </div>
         <div className="header_bottom">
           <h3>
-            {subtitle}
-            <ButtonShare url={window.location.href} />
+            <div>{subtitle}</div>
+            <ButtonShare url={url} defaultOpen position="static" iconBg="rgba(0,0,0,0.45)" iconColor="#fff" size={36} />
           </h3>
           <div className="download_buttons_container">
             <ButtonAnchor className="overview" url={overview_url} text="Overview" />

@@ -113,7 +113,7 @@ const ChartFDIExplorer = ({ introTexts = [] }) => {
 
   // --- Load data ---
   useEffect(() => {
-    loadFile(dataFile, false).then(json => {
+    loadFile(dataFile).then(json => {
       if (json) {
         json = JSON.parse(json);
         const cleaned = cleanData(json);

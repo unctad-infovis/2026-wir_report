@@ -1,11 +1,11 @@
 /* Utility */
-#app-root-__PROJECT_NAME__ .hidden {
+#app-root-2026-wir_report .hidden {
   display: none;
 }
-#app-root-__PROJECT_NAME__ .nowrap {
+#app-root-2026-wir_report .nowrap {
   white-space: nowrap;
 }
-#app-root-__PROJECT_NAME__ .warning {
+#app-root-2026-wir_report .warning {
   align-items: center;
   border: 5px solid var(--un-color-red);
   box-sizing: border-box;

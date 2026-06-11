@@ -1,0 +1,25 @@
+#app-root-2026-wir_report .app {
+  .container_chapter {
+    background: #fff;
+    border-bottom: 40px solid var(--un-color-blue);
+    padding: 40px 0;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    h3,
+    p,
+    blockquote,
+    ol,
+    ul {
+      opacity: 0;
+      &.visible {
+        opacity: 1;
+        transition: opacity 1.5s ease-in-out;
+      }
+    }
+  }
+  figure {
+    max-width: 800px;
+    margin: auto auto 20px auto;
+  }
+}

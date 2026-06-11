@@ -14,26 +14,16 @@
     },
     {
       "image_url": "https://picsum.photos/1600/600",
-      "pdf_url": "https://unctad.org/system/files/official-document/wir2025_ch03_en.pdf",
+      "pdf_url": "https://unctad.org/system/files/official-document/wir2026_ch03_en.pdf",
       "subtitle": "Global flows remain weak and unbalanced",
       "title": "Sustainable finance trends"
-    },
-    {
-      "image_url": "https://picsum.photos/1600/600",
-      "pdf_url": "https://unctad.org/system/files/official-document/wir2025_ch04_en.pdf",
-      "subtitle": "Global flows remain weak and unbalanced",
-      "title": "International investment in the digital economy"
-    },
-    {
-      "image_url": "https://picsum.photos/1600/600",
-      "pdf_url": false,
-      "subtitle": "Global flows remain weak and unbalanced",
-      "title": "Redirecting investment towards development"
     }
   ],
-  "full_report_url":"https://unctad.org/system/files/official-document/wir2025_en.pdf",
-  "overview_url":"https://unctad.org/system/files/official-document/wir2025_overview_en.pdf",
+  "full_report_url":"https://unctad.org/system/files/official-document/wir2026_en.pdf",
+  "overview_url":"https://unctad.org/system/files/official-document/wir2026_overview_en.pdf",
+  "show_site_header": true,
   "subtitle":"International investment in the digital economy",
   "title":"World Investment Report",
-  "year":"2026"
+  "year":"2026",
+  "url": "https://unctad.org/publication/world-investment-report-2026"
 }
