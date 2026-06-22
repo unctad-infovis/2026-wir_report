@@ -20,7 +20,10 @@ export default defineConfig(({ command }) => ({
         entryFileNames: chunk => chunk.name === 'index' ? `js/${name}.min.js` : `js/${name}.${chunk.name}.min.js`,
         chunkFileNames: `js/${name}.[name].js`,
         assetFileNames: assetInfo => {
-          if (assetInfo.name?.endsWith('.css')) return `css/${name}.min.css`;
+          if (assetInfo.name?.endsWith('.css')) {
+            if (assetInfo.name === 'styles.css') return `css/${name}_fdi_explorer.min.css`;
+            return `css/${name}.min.css`;
+          }
           return `assets/[name][extname]`;
         }
       }
