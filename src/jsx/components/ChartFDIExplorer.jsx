@@ -12,10 +12,10 @@ import './ChartFDIExplorer.css';
 
 // --- Constants ---
 const startYear = 1990;
-const endYear = 2024;
+const endYear = 2025;
 const allYears = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
 const countryColors = ['#009edb', '#ed1847', '#fbaf17', '#aea29a', '#a05fb4', '#72bf44'];
-const dataFile = `assets/data/2025-fdi_explorer.json`;
+const dataFile = `assets/data/2026-fdi_explorer.json`;
 
 // --- Highcharts global setup ---
 Highcharts.setOptions({
@@ -49,7 +49,7 @@ const LegendIcon = ({ symbol, color }) => {
 };
 
 // --- Main component ---
-const ChartFDIExplorer = ({ introTexts = [] }) => {
+const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
   const [data, setData] = useState(null);
   const [activeData, setActiveData] = useState([]);
   const [dataType, setDataType] = useState('fdi_inflows');
@@ -130,11 +130,15 @@ const ChartFDIExplorer = ({ introTexts = [] }) => {
   }, []);
 
   const createChart = useCallback(() => {
+    const labelColor = standalone ? '#555' : '#fff';
+    const gridColor = standalone ? '#e0e0e0' : '#555';
+    const captionColor = standalone ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.8)';
+
     chartRef.current = Highcharts.chart('fdiExplorer', {
       caption: {
         align: 'left',
         margin: 15,
-        style: { color: 'rgba(255, 255, 255, 0.8)', fontSize: '14px' },
+        style: { color: captionColor, fontSize: '14px' },
         text: '<em>Source:</em> UN Trade and Development (UNCTAD), World investment report 2026<br /><em>Note:</em> The data includes financial transactions through European economies with high levels of conduit flows.',
         verticalAlign: 'bottom',
         x: 0
@@ -257,10 +261,10 @@ const ChartFDIExplorer = ({ introTexts = [] }) => {
       series: activeData,
       xAxis: {
         endOnTick: false,
-        gridLineColor: '#555',
+        gridLineColor: gridColor,
         gridLineDashStyle: 'shortdot',
         gridLineWidth: 0,
-        labels: { distance: 10, padding: 0, rotation: 0, style: { color: '#fff', fontSize: '14px', fontWeight: 400 } },
+        labels: { distance: 10, padding: 0, rotation: 0, style: { color: labelColor, fontSize: '14px', fontWeight: 400 } },
         lineColor: '#666',
         lineWidth: 1,
         opposite: false,
@@ -272,10 +276,10 @@ const ChartFDIExplorer = ({ introTexts = [] }) => {
       },
       yAxis: {
         endOnTick: false,
-        gridLineColor: '#555',
+        gridLineColor: gridColor,
         gridLineDashStyle: 'shortdot',
         gridLineWidth: 1,
-        labels: { distance: 10, padding: 0, rotation: 0, style: { color: '#fff', fontSize: '14px', fontWeight: 400 } },
+        labels: { distance: 10, padding: 0, rotation: 0, style: { color: labelColor, fontSize: '14px', fontWeight: 400 } },
         lineColor: '#666',
         lineWidth: 1,
         opposite: false,
@@ -287,7 +291,7 @@ const ChartFDIExplorer = ({ introTexts = [] }) => {
         type: 'linear'
       }
     });
-  }, [activeData]);
+  }, [activeData, standalone]);
 
   useEffect(() => {
     if (activeData.length > 0 && !chartRef.current) {
@@ -360,21 +364,20 @@ const ChartFDIExplorer = ({ introTexts = [] }) => {
 
   const selectedCount = Object.values(selected).filter(Boolean).length;
   const screenProgress = scrollProgress * 3;
-  const isInteractive = screenProgress >= 2;
+  const isInteractive = standalone || screenProgress >= 2;
 
   return (
-    <figure className="container_chart_fdi_explorer_wrapper" ref={containerRef} style={{ height: `${300 + introTexts.length * 50}vh` }}>
-      {/* Scrolly texts in normal flow, sit above the sticky vis */}
-      <div className="fdi_scrolly_texts">
-        {introTexts.map(text => (
-          <div key={text} className="fdi_scrolly_text">
-            <p>{text}</p>
-          </div>
-        ))}
-      </div>
+    <figure className={`container_chart_fdi_explorer_wrapper${standalone ? ' standalone' : ''}`} ref={containerRef} style={standalone ? {} : { height: `${300 + introTexts.length * 50}vh` }}>
+      {!standalone && (
+        <div className="fdi_scrolly_texts">
+          {introTexts.map(text => (
+            <div key={text} className="fdi_scrolly_text">
+              <p>{text}</p>
+            </div>
+          ))}
+        </div>
+      )}
 
-      {/* Dimming overlay */}
-      {/* Sticky visualisation */}
       <div className="container_chart_fdi_explorer" style={{ opacity: isInteractive ? 1 : 0.1, pointerEvents: isInteractive ? 'all' : 'none', transition: 'opacity 0.9s ease' }}>
         <div className="layout">
           <div className="left_container">
@@ -410,7 +413,7 @@ const ChartFDIExplorer = ({ introTexts = [] }) => {
           </div>
           <div className="right_container">
             <div className="title_container">
-              <h4>By region and economy, thousands of dollars, 1990–2024</h4>
+              <h4>By region and economy, thousands of dollars, 1990–2025</h4>
               <div className="options_container">
                 <span className="button_container">
                   <button aria-label="Select FDI inflows dataset" className={`data_type${dataType === 'fdi_inflows' ? ' selected' : ''}`} onClick={() => changeDataType('fdi_inflows')} title="Select FDI inflows dataset" type="button">

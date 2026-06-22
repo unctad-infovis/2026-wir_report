@@ -13,10 +13,11 @@ export default defineConfig(({ command }) => ({
     outDir: 'dist',
     rollupOptions: {
       input: {
-        index: './index.html'
+        index: './index.html',
+        'fdi-explorer': './fdi-explorer.html'
       },
       output: {
-        entryFileNames: `js/${name}.min.js`,
+        entryFileNames: chunk => chunk.name === 'index' ? `js/${name}.min.js` : `js/${name}.${chunk.name}.min.js`,
         chunkFileNames: `js/${name}.[name].js`,
         assetFileNames: assetInfo => {
           if (assetInfo.name?.endsWith('.css')) return `css/${name}.min.css`;

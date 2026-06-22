@@ -1,6 +1,17 @@
 #app-root-2026-wir_report .app {
   figure.container_chart_fdi_explorer_wrapper {
     background-color: #111;
+    &.standalone {
+      background-color: #fff;
+      .container_chart_fdi_explorer {
+        height: auto;
+        min-height: 560px;
+        position: relative;
+        .layout {
+          color: #333;
+        }
+      }
+    }
     box-sizing: border-box;
     padding: 0 10px;
     position: relative;
