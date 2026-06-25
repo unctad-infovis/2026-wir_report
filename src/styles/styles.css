@@ -33,9 +33,6 @@
       font-weight: var(--un-font-weight-normal);
       line-height: var(--un-line-height-normal);
     }
-    strong {
-      font-weight: var(--un-font-weight-bold);
-    }
     h3,
     h4,
     p {

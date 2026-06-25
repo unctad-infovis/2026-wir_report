@@ -1,0 +1,277 @@
+<Header 
+  bg_image_url="https://picsum.photos/1600/900"
+  chapters={props.meta.chapters}
+  full_report_url={props.meta.full_report_url}
+  overview_url={props.meta.overview_url}
+  subtitle={props.meta.subtitle}
+  title={props.meta.title}
+  year={<span>20<span>26</span></span>}
+  url={props.meta.url}
+/>
+
+{
+/*********************************************
+*************** INTRO ************************
+**********************************************/
+}
+
+<div className="container_chapter">
+  #### Global investment is rising again. But it's becoming more concentrated, more strategic and less accessible to many developing countries.
+
+  The recovery remains fragile. Growth is concentrated in a small number of economies and in capital- and technology-intensive sectors.
+
+  Governments are responding with more selective policies. Incentives increasingly target clean energy, digital infrastructure, advanced manufacturing and critical minerals. Screening and conditions on foreign firms are also expanding.
+
+  Investment patterns are reshaping global production. Greenfield investment in strategic sectors is rising, while investment in manufacturing outside them is declining. The shift favours economies with strong infrastructure, skilled workers, supplier networks and access to major markets.
+
+  Most developing countries can't match the subsidy programmes of major economies. They need realistic entry points, stronger foundations and regional cooperation to compete and increase investment's development impact.
+
+  <Quote 
+    name="Pedro Manuel Moreno"
+    text="Whether investment becomes an engine of shared development or a driver of deeper divergence will turn on the choices we make today."
+    title="Acting Secretary-General of UN Trade and Development (UNCTAD)"
+  />
+</div>
+
+<ProgressBar selector=".container_chapters" />
+<BackToTop selector=".container_header" />
+
+{
+/*********************************************
+*************** CHAPTER 1 ********************
+**********************************************/
+}
+
+<div className="container_chapters">
+  <SideScrollingText 
+    header="Chapter 1" 
+    texts={[
+      'Where is investment flowing?',
+      'And who is benefiting from the recovery?',
+    ]}
+  />
+
+  <div className="container_chapter">
+    <HeaderChapter
+      image_url={props.meta.chapters[0].image_url}
+      pdf_url={props.meta.chapters[0].pdf_url}
+      subtitle={props.meta.chapters[0].subtitle}
+      title={props.meta.chapters[0].title}
+    />
+
+    ### Global investment rises, but the recovery is narrow and fragile
+
+    #### The takeaway: Global investment is up, but growth is increasingly concentrated in a narrow group of economies, projects and sectors. Broadening its development impact remains the central challenge.
+
+    Global foreign direct investment (FDI) rose 6% to $1.6 trillion in 2025, but the recovery remained fragile. Excluding conduit flows through major European financial centres, the increase was 4% after two consecutive years of decline.
+
+    Developed economies received $723 billion, up 11%, while developing economies received $901 billion, up 2%. High-income economies accounted for most of the increase.
+
+    {/* FIGURE I.2 – Foreign investment growth is concentrated in developed economies */}
+    <ChartDataWrapper chart_id="DRDnc" />
+
+    Investment also became more concentrated. The top 20 host economies received more than 80% of global inflows. The United States remained the largest destination, receiving $277 billion.
+
+    {/* FIGURE I.4 – Where foreign investment flows: Top 10 destination economies */}
+    <ChartDataWrapper chart_id="nIIMp" />
+
+    The US was also the largest source of FDI, followed by Japan and China. The top five source economies accounted for almost half of global outflows.
+
+    {/* FIGURE I.5 – Where foreign investment comes from: Top 10 source economies */}
+    <ChartDataWrapper chart_id="khaMO" />
+
+    Europe recorded most of the global increase. Inflows rose 39% to $285 billion, partly reflecting flows through financial centres and investment hubs.
+
+    Trends across developing regions diverged.
+
+    - Developing Asia remained the largest developing recipient region at $644 billion, but trends shifted within the region. East Asia declined, while South-East Asia became the largest recipient subregion. India's inflows rose 44% to $39 billion.
+    - Latin America and the Caribbean received about $190 billion, up 14%, led by South America – Brazil in particular.
+    - Africa received $70 billion. This was down from an exceptional 2024, but still one third above its 2010–2024 average.
+    - Least developed countries received $43 billion, up 21%. But this represented only 2.7% of global FDI flows and remained concentrated in a few economies.
+
+    {/* FIGURE I.7 – Europe attracts most of the increase in global foreign investment */}
+    <ChartDataWrapper chart_id="mg4E9" />
+
+    Project indicators remained weak. Cross-border mergers and acquisitions fell 7%. Greenfield announcements stayed near 2024 levels, supported mainly by megaprojects in data centres, oil and gas and semiconductors. International project finance rose 3%, but remained one quarter below its 2021 peak.
+
+    State-owned investors are also gaining ground. UNCTAD's top 100 non-financial multinationals now include 26 companies with significant State ownership, up from 15 in 2017. Completed cross-border acquisitions by majority State-owned multinationals averaged $85 billion a year from 2021 to 2025. That was nearly double the average from 2015 to 2019.
+
+    {/* FIGURE I.26 – State-owned multinationals step up international acquisitions */}
+    <ChartDataWrapper chart_id="oIfej" />
+
+    Digital infrastructure led growth in investment projects. Greenfield investment in the sector rose by more than 80%, mainly in data centres.
+
+    {/* FIGURE I.19 – Digital infrastructure leads growth in investment projects */}
+    <ChartDataWrapper chart_id="z16fu" />
+
+    ### Calls to action
+
+    - Target realistic entry points. Developing countries should focus on specific activities, value-chain functions, locations or clusters where competitive advantages can be built.
+    - Remove bottlenecks. Governments should direct public resources towards improving infrastructure, skills, supplier development and standards to attract more private investment.
+    - Protect viable projects. Investment promotion agencies should strengthen aftercare, investor-retention services and policy advocacy to prevent temporary uncertainty from becoming permanent investment losses.
+  </div>
+
+  <div className="width_100vw height_100vh anchor_fdi_explorer">
+    <ChartFDIExplorer
+      introTexts={[
+        'This chart lets you explore FDI flows since 1990.',
+        'Global FDI has fluctuated over time. But the patterns differ across regions and economies.',
+        'Choose a region or economy to compare trends.',
+      ]}
+    />
+  </div>
+
+  {
+  /*********************************************
+  *************** CHAPTER 2 ********************
+  *********************************************/
+  }
+  <SideScrollingText 
+    header="Chapter 2" 
+    texts={[
+      'How are governments responding to shifts in FDI?',
+      'What does this mean for investment policy?',
+    ]}
+  />
+
+  <div className="container_chapter">
+    <HeaderChapter 
+      image_url={props.meta.chapters[1].image_url}
+      pdf_url={props.meta.chapters[1].pdf_url}
+      subtitle={props.meta.chapters[1].subtitle}
+      title={props.meta.chapters[1].title}
+    />
+
+    ### Investment policy becomes more active, targeted and conditional
+
+    #### The takeaway: Governments increasingly want foreign investment on strategic and conditional terms. The challenge is to attract it while preserving policy space, legal certainty and sustainable development.
+
+    Governments adopted a record 229 investment policy measures in 2025. Most (73%) were favourable to investors, but increasingly targeted priorities instead of broad openness.
+
+    {/* FIGURE II.1 – Investment policy measures reach a record high */}
+    <ChartDataWrapper chart_id="FVwTZ" />
+
+    The remaining 27% tightened conditions. Developed economies focused on entry restrictions, especially investment screening. Screening regimes expanded from 21 to 52 economies in a decade. Yet fewer than 1% of reviewed projects were rejected.
+
+    In developing economies, restrictive measures more often affected how foreign firms operated. These included reduced incentives and requirements to use local workers and inputs.
+
+    {/* FIGURE II.8 – Developed and developing economies tighten investment rules in different ways */}
+    <ChartDataWrapper chart_id="nnZHh" />
+
+    Regional priorities differed. Developing Asia focused on industrial upgrading, digital transformation and green investment. Europe focused on screening and industrial policy. Latin America and the Caribbean emphasized investment facilitation and retention.
+
+    {/* FIGURE II.3 – Developing Asia leads investment policy activity */}
+    <ChartDataWrapper chart_id="RKIDx" />
+
+    Incentives accounted for half of favourable measures. They targeted clean energy, digital infrastructure, advanced manufacturing and critical minerals. Some were linked to jobs, technology, local value addition or environmental goals.
+
+    {/* FIGURE II.4 – Incentives continue to dominate policies favourable to investors */}
+    <ChartDataWrapper chart_id="IZEu5" />
+
+    Countries signed 44 investment agreements in 2025. Recent agreements increasingly emphasize facilitation and cooperation.
+
+    Disputes still rely on older rules. Some 96% of investor-State arbitration cases were based on treaties signed before 2010.
+
+    {/* FIGURE II.20 – Most investment disputes are still based on older treaties */}
+    <ChartDataWrapper chart_id="N0Tk4" />
+
+    About 80% of the new cases were brought against developing countries. Latin America and the Caribbean accounted for 25 of the 56 new cases. About one third of all cases concerned extractive industries.
+
+    {/* FIGURE II.18 – Developing countries face most new investment disputes */}
+    <ChartDataWrapper chart_id="BaYX6" />
+
+    This strengthens the case for reform that preserves governments' room to regulate while giving investors legal certainty.
+
+    ### Calls to action
+
+    - Design strategic and competitive policies. Governments should target priority sectors while improving investor services and implementation.
+    - Keep screening proportionate, transparent and risk-based. Oversight should protect sensitive assets without discouraging productive investment.
+    - Accelerate investment agreement reform. Protect states' right to regulate while giving investors legal certainty and putting sustainable development at the centre.
+  </div>
+
+  {
+  /*********************************************
+  *************** CHAPTER 3 ********************
+  *********************************************/
+  }
+  <SideScrollingText 
+    header="Chapter 3" 
+    texts={[
+      'Which sectors are capturing more investor attention?',
+      'What does this shift mean for developing countries?',
+    ]}
+  />
+
+  <div className="container_chapter">
+    <HeaderChapter
+      image_url={props.meta.chapters[2].image_url}
+      pdf_url={props.meta.chapters[2].pdf_url}
+      subtitle={props.meta.chapters[2].subtitle}
+      title={props.meta.chapters[2].title}
+    />
+
+    ### Investment in strategic sectors surges as manufacturing declines
+
+    #### The takeaway: Investment is booming in strategic sectors like artificial intelligence, semiconductors and critical minerals. But the gains are concentrated, leaving out many developing countries. Meanwhile, manufacturing outside strategic sectors is retreating.
+
+    Five strategic sectors are attracting a growing share of global investment. Announced greenfield investment in these sectors rose from $109 billion in 2020 to $576 billion in 2025. Their share of global greenfield investment increased from 16% to 44%.
+
+    The five strategic sectors include:
+
+    - Artificial intelligence (AI) infrastructure and related technologies, such as data centres, cloud computing and cybersecurity.
+    - Advanced and sensitive technologies, including biotechnology, robotics, quantum technologies and space systems.
+    - Critical minerals, such as copper, lithium and rare earth elements.
+    - Energy-transition technologies and services, including batteries, electric vehicles, hydrogen and carbon capture.
+    - Semiconductors, including chip fabrication, design-enabling activities and production equipment.
+
+    AI infrastructure was the largest category. Semiconductors grew the fastest.
+
+    {/* FIGURE III.1 – Strategic sectors attract nearly half of global greenfield investment */}
+    <ChartDataWrapper chart_id="" />
+
+    The boom is concentrated at both ends – among economies supplying the capital and those receiving it. From 2020 to 2025, the three leading source economies in each sector accounted for 69% of project values. The three leading destinations received 50%. In other sectors, the corresponding shares were 32% and 26%.
+
+    {/* FIGURE III.2 – Investment in strategic sectors is highly concentrated */}
+    <ChartDataWrapper chart_id="" />
+
+    Patterns differ by sector:
+
+    - AI infrastructure: The US is the leading source of investment, while the European Union is the main destination.
+    - Advanced-technologies: Investment also centres in the US and Europe.
+    - Critical minerals: China leads outward investment and plays a major role in processing.
+    - Semiconductors: Investment is even more concentrated. Investment from Taiwan Province of China to the US accounted for about one third of the global total from 2020 to 2025.
+
+    Many developing economies remain outside this investment boom. Low-income and lower-middle-income economies attracted only about 10% of strategic-sector investment. They received more than 20% in other sectors. This limits opportunities to build productive capacity, technology, skills and links to global production networks.
+
+    {/* FIGURE III.3 – Strategic investment bypasses many developing economies */}
+    <ChartDataWrapper chart_id="" />
+
+    Government policy is reinforcing the divide. China, the EU and the US accounted for half of the industrial policy measures recorded over the past decade. These policies include subsidies, procurement rules, local-content requirements and trade and investment restrictions. Their larger markets and greater fiscal resources make it difficult for most developing countries to compete for strategic projects.
+
+    {/* FIGURE III.9 – The subsidy gap between developed and developing economies widens */}
+    <ChartDataWrapper chart_id="" />
+
+    Meanwhile, investment in manufacturing outside the five strategic sectors is retreating. FDI to traditional industries fell by 17% between 2015–2019 and 2021–2025. The decline reached 20% in developing economies and 65% in least developed countries.
+
+    {/* FIGURE III.16 – Cross-border manufacturing investment falls 17% */}
+    <ChartDataWrapper chart_id="" />
+
+    This matters because several industries in retreat – including agribusiness, consumer goods, textiles and traditional transport equipment – have historically offered developing countries entry points into international production networks.
+
+    Supply-chain shifts are creating selective opportunities for developing countries. India and Viet Nam are gaining investment in electronics. Brazil, India, Morocco and Thailand are attracting electric vehicle projects. Mexico is strengthening its role as a manufacturing platform linked to the US.
+
+    This isn't a broad shift towards nearby production. Firms increasingly favour locations that reduce supply-chain risks, preserve access to major markets and offer compatible and predictable policies.
+
+    Low-income economies are losing further ground. Their share of manufacturing investment fell from 2% to 1%, while the value of projects declined by 70%.
+
+    {/* FIGURE III.23 – Low-income economies lose further ground in manufacturing investment */}
+    <ChartDataWrapper chart_id="" />
+
+    ### Calls to action
+
+    - Target realistic opportunities. Developing countries should focus on activities, stages of production, locations or industrial clusters where they can build a credible competitive advantage.
+    - Build the foundations investors need. Governments should prioritize reliable infrastructure, skills, supplier networks, standards and financing that can mobilize private investment around selected activities.
+    - Avoid an unaffordable subsidy race. Use limited public resources to remove investment bottlenecks and link incentives to local value addition, skills and supplier development.
+    - Use regional cooperation to create scale. Connected industrial zones, transport corridors, shared infrastructure and supplier networks can offer investors opportunities that individual countries can't provide alone.
+  </div>
+</div>

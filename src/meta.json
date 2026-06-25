@@ -2,21 +2,21 @@
   "chapters": [
     {
       "image_url": "https://picsum.photos/1600/600",
-      "pdf_url": "https://unctad.org/system/files/official-document/wir2025_ch01_en.pdf",
-      "subtitle": "Global flows remain weak and unbalanced",
+      "pdf_url": "https://unctad.org/system/files/official-document/wir2026_ch01_en.pdf",
+      "subtitle": "The recovery is narrow and fragile",
       "title": "International investment trends"
     },
     {
       "image_url": "assets/img/2026-wir_report_chapter2.jpg",
-      "pdf_url": "https://unctad.org/system/files/official-document/wir2025_ch02_en.pdf",
-      "subtitle": "Global flows remain weak and unbalanced",
+      "pdf_url": "https://unctad.org/system/files/official-document/wir2026_ch02_en.pdf",
+      "subtitle": "More active, targeted and conditional",
       "title": "Investment policy trends"
     },
     {
       "image_url": "assets/img/2026-wir_report_chapter3.jpg",
       "pdf_url": "https://unctad.org/system/files/official-document/wir2026_ch03_en.pdf",
-      "subtitle": "Global flows remain weak and unbalanced",
-      "title": "Sustainable finance trends"
+      "subtitle": "Trends and policy response",
+      "title": "International investment in a turbulent era"
     }
   ],
   "full_report_url":"https://unctad.org/system/files/official-document/wir2026_en.pdf",
