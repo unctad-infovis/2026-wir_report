@@ -4,6 +4,7 @@ import Article from '../Article.mdx';
 
 // Specific
 import ChartFDIExplorer from './components/ChartFDIExplorer.jsx';
+import ChartFocusStrategic from './components/ChartFocusStrategic.jsx';
 
 // General
 import BackToTop from './components/general/BackToTop.jsx';
@@ -24,6 +25,7 @@ const components = {
   BackToTop,
   ChartDataWrapper,
   ChartFDIExplorer,
+  ChartFocusStrategic,
   Header,
   HeaderChapter,
   Image,
