@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "vite build",
-    "postbuild": "node -e \"const fs=require('fs');['dist/index.html','dist/fdi-explorer.html'].forEach(p=>{const h=fs.readFileSync(p,'utf8');fs.writeFileSync(p,h.replace(/href=\\\"\\//g,'href=\\\"./').replace(/src=\\\"\\//g,'src=\\\"./'));});\"",
+    "postbuild": "node scripts/postbuild.js",
     "start": "vite --open",
     "start_public": "vite --open --host",
     "preview": "vite preview",
