@@ -28,7 +28,7 @@
   */
   --un-color-yellow-dark: #d67c29;
   --un-color-yellow-darkest: #b06e2a;
-  --un-color-yellow-lighest: #fff4bf;
+  --un-color-yellow-lightest: #fff4bf;
   --un-color-yellow-light: #ffd48e;
   --un-color-yellow: #fbaf17;
 
@@ -37,7 +37,7 @@
   */
   --un-color-grey-dark: #6e6259;
   --un-color-grey-darkest: #4f4740;
-  --un-color-grey-lighest: #ebeae6;
+  --un-color-grey-lightest: #ebeae6;
   --un-color-grey-light: #ded9d5;
   --un-color-grey: #aea29a;
   /* Web colors for text */
@@ -60,7 +60,7 @@
   */
   --un-color-green-dark: #006747;
   --un-color-green-darkest: #00562e;
-  --un-color-green-lighest: #e6efd0;
+  --un-color-green-lightest: #e6efd0;
   --un-color-green-light: #cee3a0;
   --un-color-green: #72bf44;
   /* Web colors for text */
