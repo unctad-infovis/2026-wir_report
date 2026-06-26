@@ -14,6 +14,7 @@ import ProgressBar from './components/general/ProgressBar.jsx';
 import Quote from './components/general/Quote.jsx';
 
 // Minisite
+import Footer from './components/minisite/Footer.jsx';
 import Header from './components/minisite/Header.jsx';
 import HeaderChapter from './components/minisite/HeaderChapter.jsx';
 import SideScrollingText from './components/minisite/SideScrollingText.jsx';
@@ -26,6 +27,7 @@ const components = {
   ChartDataWrapper,
   ChartFDIExplorer,
   ChartFocusStrategic,
+  Footer,
   Header,
   HeaderChapter,
   Image,
