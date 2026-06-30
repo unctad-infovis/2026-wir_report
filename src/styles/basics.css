@@ -31,6 +31,7 @@
   --un-font-weight-boldest: 800;
   --un-font-weight-normal: 400;
   /* Line height */
+  --un-line-height-large: 1.4;
   --un-line-height-normal: 1.3;
   --un-line-height-small: 1.2;
   --un-line-height-smallest: 1.1;

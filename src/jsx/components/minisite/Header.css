@@ -5,7 +5,17 @@
     background-size: cover;
     margin: auto auto auto auto;
     position: relative;
-    z-index: 2;
+    z-index: 1;
+    &:after {
+      background-blend-mode: darken;
+      background-color: rgba(0, 0, 0, 0.5);
+      content: '';
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: -1;
+    }
     .container_header {
       align-content: space-between;
       display: flex;
