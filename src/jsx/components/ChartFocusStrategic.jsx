@@ -27,8 +27,8 @@ const mfgInvestors = [
   { key: 'cn', label: 'China', color: '#fbaf17', p1: 102, p2: 109 },
   { key: 'us', label: 'United States', color: '#004987', p1: 139, p2: 102 },
   { key: 'kr', label: 'Republic of Korea', color: '#b06e2a', p1: 62, p2: 69 },
-  { key: 'jp', label: 'Japan', color: '#aea29a', p1: 105, p2: 52 },
-  { key: 'other', label: 'Others', color: '#6e6259', p1: 291, p2: 245 }
+  { key: 'jp', label: 'Japan', color: '#a05fb4', p1: 105, p2: 52 },
+  { key: 'other', label: 'Others', color: '#aea29a', p1: 291, p2: 245 }
 ];
 
 const incomeGroups = [
@@ -51,45 +51,60 @@ const panels = [
     step: 1,
     headline: 'Investment is booming in five strategic sectors.',
     body: 'Announced greenfield investment in these sectors rose from $109 billion in 2020 to $576 billion in 2025 – an increase of more than fivefold in five years. Their share of global greenfield investment grew from 16% to 44%.',
-    source: 'Source: UNCTAD, based on fDi Markets. Data for 2025 annualized based on information available as of 30 November.'
+    source: 'Source: UN Trade and Development (UNCTAD), based on fDi Markets. Data for 2025 annualized based on information available as of 30 November.'
   },
   {
     step: 2,
     headline: 'AI infrastructure is the largest segment. Semiconductors are growing fastest.',
     body: 'AI infrastructure attracted $341 billion in 2025 alone. Semiconductors recorded the highest compound annual growth rate – 54% – between 2020 and 2025.',
-    source: 'Note: CAGR = compound annual growth rate, 2020–2025.'
+    source: 'Source: UN Trade and Development (UNCTAD), based on fDi Markets. Data for 2025 annualized based on information available as of 30 November.'
   },
   {
     step: 3,
     headline: 'But traditional manufacturing moved in the opposite direction.',
     body: 'Announced greenfield investment in manufacturing outside strategic sectors fell 17% between 2015–2019 and 2021–2025. The decline affected agribusiness, consumer goods, textiles and traditional transport equipment – industries that have historically offered developing countries entry points into global production networks.',
-    source: 'Source: UNCTAD, based on fDi Markets.'
+    source: 'Source: UN Trade and Development (UNCTAD), based on fDi Markets.'
   },
   {
     step: 4,
     headline: 'The most vulnerable economies saw the deepest declines.',
     body: 'Low-income economies saw manufacturing investment fall by 70%. Their share dropped from 2% to 1%. The most accessible routes into global production networks are narrowing for those who need them most.',
-    source: 'Source: UNCTAD, based on fDi Markets.'
+    source: 'Source: UN Trade and Development (UNCTAD), based on fDi Markets.'
   }
+];
+
+// --- Chart descriptions ---
+
+const CHART_DESCRIPTIONS = [
+  'Announced greenfield investment in strategic sectors, billions of dollars and percentage of global greenfield investment, 2020–2025',
+  'Announced greenfield investment in strategic sectors, billions of dollars and percentage of global greenfield investment, 2020–2025',
+  'Announced greenfield investment in strategic sectors, billions of dollars and percentage of global greenfield investment, 2020–2025',
+  'Announced greenfield investment in manufacturing outside strategic sectors, by largest source economy, billions of dollars, 2015–2019 and 2021–2025',
+  'Share of announced greenfield investment in manufacturing outside strategic sectors, by recipient-country income group, percentage, 2015–2019 and 2021–2025'
 ];
 
 // --- Module-level constants and helpers (stable references, not component scope) ---
 
-const CHART_MARGIN = { top: 30, right: 55, bottom: 40, left: 65 };
+const CHART_MARGIN = { top: 20, right: 10, bottom: 35, left: 30 };
 const SECTOR_KEYS = sectors.map(s => s.key);
 
 const getSectorColor = (key, highlight) => (highlight && !['ai', 'semi'].includes(key) ? '#e0e0e0' : (sectors.find(s => s.key === key)?.color ?? '#999'));
 
 const applyGridStyle = ax => {
   ax.select('.domain').remove();
-  ax.selectAll('.tick line').style('stroke', '#d0d0d0').style('stroke-dasharray', '2,2');
-  ax.selectAll('.tick text').style('fill', '#7c7067').style('font-size', '11px');
+  ax.selectAll('.tick line').attr('x1', -CHART_MARGIN.left).style('stroke', '#d0d0d0').style('stroke-dasharray', '2,2');
+  ax.selectAll('.tick text')
+    .style('fill', '#7c7067')
+    .style('font-size', '14px')
+    .attr('x', -CHART_MARGIN.left + 4)
+    .attr('dy', '-4px')
+    .attr('text-anchor', 'start');
 };
 
 const applyXStyle = ax => {
   ax.select('.domain').remove();
   ax.selectAll('.tick line').remove();
-  ax.selectAll('.tick text').style('fill', '#7c7067').style('font-size', '11px');
+  ax.selectAll('.tick text').style('fill', '#7c7067').style('font-size', '14px');
 };
 
 // --- D3 draw functions (module-level, receive iW/iH as params) ---
@@ -108,7 +123,7 @@ const drawChart1 = (g, iW, iH, highlight) => {
     .join('g')
     .attr('class', 'x-axis axis')
     .attr('transform', `translate(0,${iH})`)
-    .call(d3.axisBottom(x).tickFormat(d3.format('d')).tickSize(0))
+    .call(d3.axisBottom(x).tickFormat(d3.format('d')).tickSize(0).tickPadding(8))
     .call(applyXStyle);
 
   g.selectAll('.y-axis')
@@ -118,8 +133,8 @@ const drawChart1 = (g, iW, iH, highlight) => {
     .call(
       d3
         .axisLeft(y)
-        .ticks(6)
-        .tickFormat(d => `$${d}bn`)
+        .tickValues([0, 200, 400, 600])
+        .tickFormat(d => `${d}`)
         .tickSize(-iW)
     )
     .call(applyGridStyle);
@@ -157,7 +172,7 @@ const drawChart1 = (g, iW, iH, highlight) => {
     rects.exit().remove();
   });
 
-  const cagrData = highlight ? sectors : [];
+  const cagrData = [];
   const cagrSel = g.selectAll('.cagr-label').data(cagrData, d => d.key);
   cagrSel
     .enter()
@@ -188,22 +203,22 @@ const drawChart1 = (g, iW, iH, highlight) => {
   const annotData = highlight
     ? []
     : [
-        { year: 2020, lines: ['$109bn', '16%'] },
-        { year: 2025, lines: ['$576bn', '44%'] }
+        { year: 2020, lines: ['109'] },
+        { year: 2025, lines: ['576'] }
       ];
   const annotSel = g.selectAll('.bar-annotation').data(annotData, d => d.year);
   const annotEnter = annotSel.enter().append('text').attr('class', 'bar-annotation').style('opacity', 0);
   annotEnter
     .merge(annotSel)
     .attr('text-anchor', 'middle')
-    .attr('font-size', 11)
+    .attr('font-size', 14)
     .attr('font-weight', 700)
     .attr('fill', '#333')
     .attr('x', d => x(d.year) + x.bandwidth() / 2)
     .attr('y', d => {
       const row = data1.find(r => r.year === d.year);
       const total = SECTOR_KEYS.reduce((s, k) => s + row[k], 0);
-      return y(total) - 16;
+      return y(total) - 5;
     })
     .each(function (d) {
       const el = d3.select(this);
@@ -219,6 +234,32 @@ const drawChart1 = (g, iW, iH, highlight) => {
     .duration(300)
     .style('opacity', 1);
   annotSel.exit().transition().duration(200).style('opacity', 0).remove();
+
+  const barLabelData = highlight
+    ? [
+        { key: 'ai', value: Math.round(data1[5].ai), low: 0, high: data1[5].ai },
+        { key: 'semi', value: Math.round(data1[5].semi), low: data1[5].ai, high: data1[5].ai + data1[5].semi }
+      ]
+    : [];
+  const barLabelSel = g.selectAll('.bar-label').data(barLabelData, d => d.key);
+  barLabelSel
+    .enter()
+    .append('text')
+    .attr('class', 'bar-label')
+    .style('opacity', 0)
+    .merge(barLabelSel)
+    .attr('text-anchor', 'middle')
+    .attr('dy', '0.35em')
+    .attr('font-size', 14)
+    .attr('font-weight', 700)
+    .attr('fill', d => (d.key === 'semi' ? '#222' : '#fff'))
+    .attr('x', x(2025) + x.bandwidth() / 2)
+    .attr('y', d => (y(d.high) + y(d.low)) / 2)
+    .text(d => String(d.value))
+    .transition()
+    .duration(300)
+    .style('opacity', 1);
+  barLabelSel.exit().transition().duration(200).style('opacity', 0).remove();
 };
 
 const drawChart2 = (g, iW, iH) => {
@@ -241,7 +282,7 @@ const drawChart2 = (g, iW, iH) => {
     .domain([0, maxTotal * 1.2])
     .range([iH, 0]);
 
-  g.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis axis').attr('transform', `translate(0,${iH})`).call(d3.axisBottom(x).tickSize(0)).call(applyXStyle);
+  g.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis axis').attr('transform', `translate(0,${iH})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8)).call(applyXStyle);
 
   g.selectAll('.y-axis')
     .data([null])
@@ -250,8 +291,8 @@ const drawChart2 = (g, iW, iH) => {
     .call(
       d3
         .axisLeft(y)
-        .ticks(5)
-        .tickFormat(d => `$${d}bn`)
+        .tickValues([0, 200, 400, 600, 800, 1000])
+        .tickFormat(d => (d === 1000 ? '1 000' : `${d}`))
         .tickSize(-iW)
     )
     .call(applyGridStyle);
@@ -287,21 +328,16 @@ const drawChart2 = (g, iW, iH) => {
 
   g.selectAll('.change-label')
     .data(['-17%'])
-    .join(
-      enter => enter.append('text').attr('class', 'change-label').style('opacity', 0),
-      update => update
-    )
+    .join('text')
+    .attr('class', 'change-label')
     .attr('x', iW / 2)
     .attr('y', y(maxTotal * 1.1))
     .attr('text-anchor', 'middle')
     .attr('font-size', 32)
     .attr('font-weight', 700)
     .attr('fill', '#ed1847')
-    .text(d => d)
-    .transition()
-    .duration(400)
-    .delay(350)
-    .style('opacity', 1);
+    .style('opacity', 1)
+    .text(d => d);
 };
 
 const drawChart3 = (g, iW, iH) => {
@@ -320,7 +356,7 @@ const drawChart3 = (g, iW, iH) => {
     .padding(0.35);
   const y = d3.scaleLinear().domain([0, 105]).range([iH, 0]);
 
-  g.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis axis').attr('transform', `translate(0,${iH})`).call(d3.axisBottom(x).tickSize(0)).call(applyXStyle);
+  g.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis axis').attr('transform', `translate(0,${iH})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8)).call(applyXStyle);
 
   g.selectAll('.y-axis')
     .data([null])
@@ -330,7 +366,7 @@ const drawChart3 = (g, iW, iH) => {
       d3
         .axisLeft(y)
         .ticks(5)
-        .tickFormat(d => `${d}%`)
+        .tickFormat(d => (d === 100 ? `${d}%` : `${d}`))
         .tickSize(-iW)
     )
     .call(applyGridStyle);
@@ -341,7 +377,6 @@ const drawChart3 = (g, iW, iH) => {
     .append('g')
     .attr('class', d => `layer layer-${d.key}`)
     .attr('fill', d => incomeGroups.find(ig => ig.key === d.key)?.color ?? '#999')
-    .attr('opacity', d => (d.key === 'low' ? 1 : 0.7))
     .merge(layers);
   layers.exit().remove();
 
@@ -375,22 +410,22 @@ const drawChart3 = (g, iW, iH) => {
   });
 
   g.selectAll('.income-change')
-    .data(labelData, d => d.key)
-    .join(
-      enter => enter.append('text').attr('class', 'income-change').style('opacity', 0),
-      update => update
-    )
+    .data(labelData.filter(d => d.key === 'low'), d => d.key)
+    .join('text')
+    .attr('class', 'income-change')
     .attr('x', x('2021–2025') + x.bandwidth() + 8)
-    .attr('y', d => d.midY)
+    .attr('y', d => d.midY + 5)
     .attr('dy', '0.35em')
     .attr('font-size', d => (d.key === 'low' ? 14 : 11))
     .attr('font-weight', d => (d.key === 'low' ? 700 : 400))
     .attr('fill', d => d.color)
-    .text(d => d.change)
-    .transition()
-    .duration(400)
-    .delay(350)
-    .style('opacity', 1);
+    .style('opacity', 1)
+    .each(function (d) {
+      const el = d3.select(this);
+      el.selectAll('tspan').remove();
+      el.append('tspan').attr('x', el.attr('x')).attr('dy', '-0.6em').text('Value');
+      el.append('tspan').attr('x', el.attr('x')).attr('dy', '1.2em').text(d.change);
+    });
 };
 
 // --- D3 Chart component ---
@@ -399,17 +434,24 @@ const D3Chart = ({ step, width, height }) => {
   const svgRef = useRef(null);
   const prevStepRef = useRef(null);
 
-  // Init: reset SVG root when dimensions change
-  // biome-ignore lint/correctness/useExhaustiveDependencies: width/height are trigger deps to reset SVG on resize, not referenced in the body
+  // Init: clear SVG and pre-render all chart types when dimensions change
+  // biome-ignore lint/correctness/useExhaustiveDependencies: drawChart1/2/3 are stable module-level functions
   useEffect(() => {
     if (!svgRef.current) return;
+    const iW = width - CHART_MARGIN.left - CHART_MARGIN.right;
+    const iH = height - CHART_MARGIN.top - CHART_MARGIN.bottom;
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
-    svg.append('g').attr('class', 'root').attr('transform', `translate(${CHART_MARGIN.left},${CHART_MARGIN.top})`);
+    const root = svg.append('g').attr('class', 'root').attr('transform', `translate(${CHART_MARGIN.left},${CHART_MARGIN.top})`);
     prevStepRef.current = null;
+    if (iW <= 0 || iH <= 0) return;
+    [1, 2, 3].forEach(t => root.append('g').attr('class', `chart${t}`).style('opacity', 0).style('transition', 'opacity 0.9s ease'));
+    drawChart1(root.select('.chart1'), iW, iH, false);
+    drawChart2(root.select('.chart2'), iW, iH);
+    drawChart3(root.select('.chart3'), iW, iH);
   }, [width, height]);
 
-  // Update on step change – cross-fade between chart types
+  // Step change: update highlight if needed, then set opacity (CSS handles the fade)
   useEffect(() => {
     const iW = width - CHART_MARGIN.left - CHART_MARGIN.right;
     const iH = height - CHART_MARGIN.top - CHART_MARGIN.bottom;
@@ -422,43 +464,31 @@ const D3Chart = ({ step, width, height }) => {
 
     const getType = s => (s <= 2 ? 1 : s === 3 ? 2 : 3);
     const newType = getType(step);
-    const oldType = comingFrom !== null ? getType(comingFrom) : null;
 
-    [1, 2, 3].forEach(t => {
-      if (root.select(`.chart${t}`).empty()) {
-        root.append('g').attr('class', `chart${t}`).style('display', 'none').style('opacity', 0);
-      }
-    });
-
-    const drawActive = g => {
-      if (newType === 1) drawChart1(g, iW, iH, step === 2);
-      else if (newType === 2) drawChart2(g, iW, iH);
-      else drawChart3(g, iW, iH);
-    };
-
-    const activateNew = () => {
-      [1, 2, 3]
-        .filter(t => t !== newType)
-        .forEach(t => {
-          root.select(`.chart${t}`).style('display', 'none').style('opacity', 0);
-        });
-      const newGroup = root.select(`.chart${newType}`);
-      newGroup.style('display', null);
-      drawActive(newGroup);
-      newGroup.interrupt('chart-fade').style('opacity', 0).transition('chart-fade').duration(300).style('opacity', 1);
-    };
-
-    const chartSwitch = oldType !== null && oldType !== newType;
-
-    if (chartSwitch) {
-      root.select(`.chart${oldType}`).interrupt('chart-fade').transition('chart-fade').duration(200).style('opacity', 0).on('end', activateNew);
-    } else {
-      const newGroup = root.select(`.chart${newType}`).style('display', null);
-      drawActive(newGroup);
-      if (comingFrom === null) {
-        newGroup.style('opacity', 0).transition('chart-fade').duration(400).style('opacity', 1);
+    // Update chart1 highlight when entering or leaving step 2
+    if (newType === 1) {
+      const highlight = step === 2;
+      const prevHighlight = comingFrom === 2;
+      if (comingFrom === null || highlight !== prevHighlight) {
+        drawChart1(root.select('.chart1'), iW, iH, highlight);
       }
     }
+
+    // Defer opacity change by two animation frames so the browser paints the
+    // "all groups at opacity 0" state that the init effect may have just written
+    // before we change any group to opacity 1 — this lets CSS transition fire.
+    let raf2;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        const r = d3.select(svgRef.current)?.select('.root');
+        if (!r || r.empty()) return;
+        [1, 2, 3].forEach(t => r.select(`.chart${t}`).style('opacity', t === newType ? 1 : 0));
+      });
+    });
+    return () => {
+      cancelAnimationFrame(raf1);
+      if (raf2) cancelAnimationFrame(raf2);
+    };
   }, [step, width, height]);
 
   return <svg ref={svgRef} width={width} height={height} className="strategic_svg" />;
@@ -472,7 +502,7 @@ const Legend = ({ step }) => {
     <div className="strategic_legend">
       {items.map(s => (
         <div key={s.key} className="legend_item">
-          <span className="legend_swatch" style={{ background: s.color }} />
+          <span className="legend_swatch" style={{ background: step === 2 ? getSectorColor(s.key, true) : s.color }} />
           <span>{s.label}</span>
         </div>
       ))}
@@ -499,13 +529,16 @@ const ChartFocusStrategic = () => {
   }, []);
 
   useEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    // On mobile the chart is sticky at top (0–50svh); fire when panel enters the bottom half
+    const rootMargin = isMobile ? '-50% 0px -10% 0px' : '-45% 0px -45% 0px';
     const observers = panelRefs.current.map((el, i) => {
       if (!el) return null;
       const obs = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) setActiveStep(i);
         },
-        { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+        { rootMargin, threshold: 0 }
       );
       obs.observe(el);
       return obs;
@@ -521,6 +554,11 @@ const ChartFocusStrategic = () => {
     <div className="chart_focus_strategic">
       <div className="strategic_left">
         <div className="strategic_panel_inner">
+          {CHART_DESCRIPTIONS[activeStep] && (
+            <p className="strategic_description">
+              {CHART_DESCRIPTIONS[activeStep]}
+            </p>
+          )}
           <Legend step={activeStep} />
           <div className="strategic_chart_wrap" ref={chartWrapRef}>
             {chartSize.width > 0 && chartSize.height > 0 && <D3Chart step={activeStep} width={chartSize.width} height={chartSize.height} />}

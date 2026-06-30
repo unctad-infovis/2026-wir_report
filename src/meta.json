@@ -1,7 +1,7 @@
 {
   "chapters": [
     {
-      "image_url": "https://picsum.photos/1600/600",
+      "image_url": "assets/img/2026-wir_report_chapter1.jpg",
       "pdf_url": "https://unctad.org/system/files/official-document/wir2026_ch01_en.pdf",
       "subtitle": "The recovery is narrow and fragile",
       "title": "International investment trends"
@@ -20,6 +20,7 @@
     }
   ],
   "full_report_url":"https://unctad.org/system/files/official-document/wir2026_en.pdf",
+  "image_url":"assets/img/2026-wir_report_main.jpg",
   "overview_url":"https://unctad.org/system/files/official-document/wir2026_overview_en.pdf",
   "show_site_header": true,
   "subtitle":"International investment in the digital economy",
