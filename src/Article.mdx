@@ -1,5 +1,5 @@
 <Header 
-  bg_image_url="https://picsum.photos/1600/900"
+  bg_image_url={props.meta.image_url}
   chapters={props.meta.chapters}
   full_report_url={props.meta.full_report_url}
   overview_url={props.meta.overview_url}
@@ -88,9 +88,9 @@
 
     <p><strong>Trends across developing regions diverged.</strong></p>
 
-    - Developing Asia remained the largest developing recipient region at $644 billion, but trends shifted within the region. East Asia declined, while South-East Asia became the largest recipient subregion. <strong>India's inflows rose 44% to $39 billion</strong>.
-    - Latin America and the Caribbean received about $188 billion, up 14%, led by South America – Brazil in particular.
-    - Africa received $70 billion. This was down from an exceptional 2024, but still one third above its 2010–2024 average.
+    - Developing Asia remained the largest developing recipient region at $644 billion, but trends shifted within the region. East Asia declined, while South-East Asia became the largest recipient subregion. <strong>India's inflows rose 44% to $39 billion</strong>. {/* TO DO: update link */} [More on Asia](https://unctad.org/)
+    - Latin America and the Caribbean received about $188 billion, up 14%, led by South America – Brazil in particular. {/* TO DO: update link */} [More on Latin America and the Caribbean](https://unctad.org/)
+    - Africa received $70 billion. This was down from an exceptional 2024, but still one third above its 2010–2024 average. {/* TO DO: update link */} [More on Africa](https://unctad.org/)
     - Least developed countries received $43 billion, up 21%. But this represented only 2.7% of global FDI flows and remained concentrated in a few economies.
 
     {/* FIGURE I.7 – Europe attracts most of the increase in global foreign investment */}
@@ -245,12 +245,15 @@
     AI infrastructure was the largest category. Semiconductors grew the fastest.
 
     {/* FIGURE III.1 – Strategic sectors attract nearly half of global greenfield investment */}
-    <ChartDataWrapper chart_id="" />
+    <ChartDataWrapper chart_id="5pvfz" />
 
     <strong>The boom is concentrated at both ends – among economies supplying the capital and those receiving it.</strong> In 2025, the three leading source economies in strategic sectors accounted for 72% of project values. The three leading destinations received 56%. In other sectors, the corresponding shares were 27% and 34%.
 
     {/* FIGURE III.2 – Investment in strategic sectors is highly concentrated */}
-    <ChartDataWrapper chart_id="" />
+    <div className="two_column">
+      <ChartDataWrapper chart_id="1gO8e" />
+      <ChartDataWrapper chart_id="qLW7Z" />
+    </div>
 
     Patterns differ by sector:
 
@@ -263,17 +266,19 @@
     <strong>Many developing economies remain outside this investment boom.</strong> Low-income and lower-middle-income economies attracted only about 10% of strategic-sector investment. They received more than 20% in other sectors. This risks limiting their participation in the fastest-growing areas of international investment and widening gaps in global production networks.
 
     {/* FIGURE III.3 – Strategic investment bypasses many developing economies */}
-    <ChartDataWrapper chart_id="" />
+    <ChartDataWrapper chart_id="WBu1M" />
+
+    <ChartDataWrapper chart_id="QTqkZ" />
 
     <strong>Government policy is reinforcing the divide.</strong> China, the EU and the US accounted for half of the industrial policy measures recorded over the past decade. These policies include subsidies, procurement rules, local-content requirements and trade and investment restrictions. Their larger markets and greater fiscal resources make it difficult for most developing countries to compete for strategic projects.
 
     {/* FIGURE III.9 – The subsidy gap between developed and developing economies widens */}
-    <ChartDataWrapper chart_id="" />
+    <ChartDataWrapper chart_id="c8PHs" />
 
     <strong>Meanwhile, investment in manufacturing outside the five strategic sectors is retreating.</strong> FDI to traditional industries fell by 17% between 2015–2019 and 2021–2025. The decline reached 20% in developing economies and 65% in least developed countries.
 
     {/* FIGURE III.16 – Cross-border manufacturing investment falls 17% */}
-    <ChartDataWrapper chart_id="" />
+    <ChartDataWrapper chart_id="UepRO" />
 
     Traditional manufacturing entry points for developing countries are narrowing. This matters because several industries in retreat – including agribusiness, consumer goods, textiles and traditional transport equipment – have historically offered developing countries entry points into international production networks.
 
@@ -284,7 +289,7 @@
     <strong>Low-income economies are losing further ground.</strong> Their share of manufacturing investment fell from 2% to 1%, while the value of projects declined by 70%.
 
     {/* FIGURE III.23 – Low-income economies lose further ground in manufacturing investment */}
-    <ChartDataWrapper chart_id="" />
+    <ChartDataWrapper chart_id="bMEw8" />
 
     <div className="highlight_container">
       ### Calls to action

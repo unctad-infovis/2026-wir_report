@@ -75,8 +75,10 @@
     .two_column {
       align-items: center;
       display: flex;
-      gap: 20px;
+      gap: 0;
       justify-content: center;
+      margin: auto auto;
+      max-width: 1000px;
       @media all and (max-width: 700px) {
         flex-direction: column;
       }
