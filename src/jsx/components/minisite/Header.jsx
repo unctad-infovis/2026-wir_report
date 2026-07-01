@@ -36,7 +36,7 @@ function Header({ bg_image_url, chapters, full_report_url, overview_url, subtitl
                     <h3>{chapter.title}</h3>
                   </div>
                   <div className="chapter_image">
-                    <div style={{ backgroundImage: `url(${chapter.image_url})` }} />
+                    <div style={{ backgroundImage: `url(${chapter.image_url?.startsWith('http') ? chapter.image_url : `${basePath()}${chapter.image_url}`})` }} />
                   </div>
                   <div className="chapter_meta">
                     <div className="chapter_number">{i + 1}.</div>
