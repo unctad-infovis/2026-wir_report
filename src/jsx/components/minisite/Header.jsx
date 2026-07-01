@@ -1,11 +1,13 @@
+import basePath from './../../helpers/BasePath';
 import ButtonAnchor from './../general/ButtonAnchor.jsx';
 import ButtonShare from './../general/ButtonShare.jsx';
 
 import './Header.css';
 
 function Header({ bg_image_url, chapters, full_report_url, overview_url, subtitle, title, year, url }) {
+  const bgSrc = bg_image_url?.startsWith('http') ? bg_image_url : `${basePath()}${bg_image_url}`;
   return (
-    <div className="container_header_wrapper" style={{ backgroundImage: `url(${bg_image_url})` }}>
+    <div className="container_header_wrapper" style={{ backgroundImage: `url(${bgSrc})` }}>
       <div className="container_header">
         <div className="header_top">
           <h2>
