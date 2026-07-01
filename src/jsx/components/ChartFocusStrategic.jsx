@@ -50,7 +50,7 @@ const panels = [
   {
     step: 1,
     headline: 'Investment is booming in five strategic sectors.',
-    body: 'Announced greenfield investment in these sectors rose from $109 billion in 2020 to $576 billion in 2025 – an increase of more than fivefold in five years. Their share of global greenfield investment grew from 16% to 44%.',
+    body: 'Announced greenfield investment in these sectors rose from $109 billion in 2020 to $576 billion in 2025 – an increase of more than fivefold in five years.',
     source: 'Source: UN Trade and Development (UNCTAD), based on fDi Markets. Data for 2025 annualized based on information available as of 30 November.'
   },
   {
@@ -68,7 +68,7 @@ const panels = [
   {
     step: 4,
     headline: 'The most vulnerable economies saw the deepest declines.',
-    body: 'Low-income economies saw manufacturing investment fall by 70%. Their share dropped from 2% to 1%. The most accessible routes into global production networks are narrowing for those who need them most.',
+    body: 'Low-income economies saw manufacturing investment fall by 70%. The most accessible routes into global production networks are narrowing for those who need them most.',
     source: 'Source: UN Trade and Development (UNCTAD), based on fDi Markets.'
   }
 ];
@@ -80,15 +80,21 @@ const CHART_DESCRIPTIONS = [
   'Announced greenfield investment in strategic sectors, billions of dollars and percentage of global greenfield investment, 2020–2025',
   'Announced greenfield investment in strategic sectors, billions of dollars and percentage of global greenfield investment, 2020–2025',
   'Announced greenfield investment in manufacturing outside strategic sectors, by largest source economy, billions of dollars, 2015–2019 and 2021–2025',
-  'Share of announced greenfield investment in manufacturing outside strategic sectors, by recipient-country income group, percentage, 2015–2019 and 2021–2025'
+  'Announced greenfield investment in manufacturing outside strategic sectors to low-income economies, millions of dollars, 2015–2019 and 2021–2025'
 ];
 
 // --- Module-level constants and helpers (stable references, not component scope) ---
 
 const CHART_MARGIN = { top: 20, right: 10, bottom: 35, left: 30 };
 const SECTOR_KEYS = sectors.map(s => s.key);
+const fmtSpace = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0');
 
-const getSectorColor = (key, highlight) => (highlight && !['ai', 'semi'].includes(key) ? '#e0e0e0' : (sectors.find(s => s.key === key)?.color ?? '#999'));
+const getSectorColor = (key, highlight) => {
+  if (!highlight) return '#009edb';
+  if (key === 'ai') return '#004987';
+  if (key === 'semi') return '#fbaf17';
+  return '#e0e0e0';
+};
 
 const applyGridStyle = ax => {
   ax.select('.domain').remove();
@@ -139,38 +145,62 @@ const drawChart1 = (g, iW, iH, highlight) => {
     )
     .call(applyGridStyle);
 
-  const layers = g.selectAll('.layer').data(series, d => d.key);
-  const layersEnter = layers
-    .enter()
-    .append('g')
-    .attr('class', d => `layer layer-${d.key}`)
-    .attr('fill', d => getSectorColor(d.key, highlight));
-  const allLayers = layersEnter.merge(layers);
-  allLayers
-    .transition()
-    .duration(300)
-    .attr('fill', d => getSectorColor(d.key, highlight));
-  layers.exit().remove();
-
-  allLayers.each(function (layerData) {
-    const layer = d3.select(this);
-    const rects = layer.selectAll('rect').data(layerData, d => d.data.year);
-    rects
+  if (!highlight) {
+    // Single rect per year — no seams between segments
+    g.selectAll('.layer').remove();
+    const totalData = data1.map(d => ({ year: d.year, total: SECTOR_KEYS.reduce((s, k) => s + d[k], 0) }));
+    const bars = g.selectAll('.bar-simple').data(totalData, d => d.year);
+    bars
       .enter()
       .append('rect')
-      .attr('x', d => x(d.data.year))
+      .attr('class', 'bar-simple')
+      .attr('fill', '#009edb')
+      .attr('x', d => x(d.year))
       .attr('width', x.bandwidth())
-      .attr('y', d => y(d[1]))
-      .attr('height', d => Math.max(0, y(d[0]) - y(d[1])));
-    rects
+      .attr('y', d => y(d.total))
+      .attr('height', d => Math.max(0, y(0) - y(d.total)));
+    bars
       .transition()
       .duration(300)
-      .attr('x', d => x(d.data.year))
+      .attr('x', d => x(d.year))
       .attr('width', x.bandwidth())
-      .attr('y', d => y(d[1]))
-      .attr('height', d => Math.max(0, y(d[0]) - y(d[1])));
-    rects.exit().remove();
-  });
+      .attr('y', d => y(d.total))
+      .attr('height', d => Math.max(0, y(0) - y(d.total)));
+    bars.exit().remove();
+  } else {
+    g.selectAll('.bar-simple').remove();
+    const layers = g.selectAll('.layer').data(series, d => d.key);
+    const layersEnter = layers
+      .enter()
+      .append('g')
+      .attr('class', d => `layer layer-${d.key}`)
+      .attr('fill', d => getSectorColor(d.key, highlight));
+    const allLayers = layersEnter.merge(layers);
+    allLayers
+      .transition()
+      .duration(300)
+      .attr('fill', d => getSectorColor(d.key, highlight));
+    layers.exit().remove();
+    allLayers.each(function (layerData) {
+      const layer = d3.select(this);
+      const rects = layer.selectAll('rect').data(layerData, d => d.data.year);
+      rects
+        .enter()
+        .append('rect')
+        .attr('x', d => x(d.data.year))
+        .attr('width', x.bandwidth())
+        .attr('y', d => y(d[1]))
+        .attr('height', d => Math.max(0, y(d[0]) - y(d[1])));
+      rects
+        .transition()
+        .duration(300)
+        .attr('x', d => x(d.data.year))
+        .attr('width', x.bandwidth())
+        .attr('y', d => y(d[1]))
+        .attr('height', d => Math.max(0, y(d[0]) - y(d[1])));
+      rects.exit().remove();
+    });
+  }
 
   const cagrData = [];
   const cagrSel = g.selectAll('.cagr-label').data(cagrData, d => d.key);
@@ -263,14 +293,11 @@ const drawChart1 = (g, iW, iH, highlight) => {
 };
 
 const drawChart2 = (g, iW, iH) => {
-  const mfgKeys = mfgInvestors.map(d => d.key);
-  const periods = [{ period: '2015–2019' }, { period: '2021–2025' }];
-  for (const m of mfgInvestors) {
-    periods[0][m.key] = m.p1;
-    periods[1][m.key] = m.p2;
-  }
-  const series = d3.stack().keys(mfgKeys)(periods);
-  const maxTotal = d3.max(periods, p => mfgKeys.reduce((s, k) => s + p[k], 0));
+  const periods = [
+    { period: '2015–2019', total: mfgInvestors.reduce((s, d) => s + d.p1, 0) },
+    { period: '2021–2025', total: mfgInvestors.reduce((s, d) => s + d.p2, 0) }
+  ];
+  const maxTotal = Math.max(...periods.map(p => p.total));
 
   const x = d3
     .scaleBand()
@@ -297,34 +324,43 @@ const drawChart2 = (g, iW, iH) => {
     )
     .call(applyGridStyle);
 
-  const layers = g.selectAll('.layer').data(series, d => d.key);
-  const allLayers = layers
-    .enter()
-    .append('g')
-    .attr('class', d => `layer layer-${d.key}`)
-    .attr('fill', d => mfgInvestors.find(m => m.key === d.key)?.color ?? '#999')
-    .merge(layers);
-  layers.exit().remove();
+  // Connecting trapezoid between the two bars
+  const x1right = x(periods[0].period) + x.bandwidth();
+  const x2left = x(periods[1].period);
+  const connPoints = [[x1right, y(periods[0].total)], [x2left, y(periods[1].total)], [x2left, iH], [x1right, iH]]
+    .map(p => p.join(',')).join(' ');
+  g.selectAll('.bar-connector').data([null]).join('polygon').attr('class', 'bar-connector').attr('fill', '#f7dfdf').attr('points', connPoints);
 
-  allLayers.each(function (layerData) {
-    const layer = d3.select(this);
-    const rects = layer.selectAll('rect').data(layerData, d => d.data.period);
-    rects
-      .enter()
-      .append('rect')
-      .attr('x', d => x(d.data.period))
-      .attr('width', x.bandwidth())
-      .attr('y', d => y(d[1]))
-      .attr('height', d => Math.max(0, y(d[0]) - y(d[1])));
-    rects
-      .transition()
-      .duration(300)
-      .attr('x', d => x(d.data.period))
-      .attr('width', x.bandwidth())
-      .attr('y', d => y(d[1]))
-      .attr('height', d => Math.max(0, y(d[0]) - y(d[1])));
-    rects.exit().remove();
-  });
+  const bars = g.selectAll('.bar-simple').data(periods, d => d.period);
+  bars
+    .enter()
+    .append('rect')
+    .attr('class', 'bar-simple')
+    .attr('fill', '#009edb')
+    .attr('x', d => x(d.period))
+    .attr('width', x.bandwidth())
+    .attr('y', d => y(d.total))
+    .attr('height', d => Math.max(0, y(0) - y(d.total)));
+  bars
+    .transition()
+    .duration(300)
+    .attr('x', d => x(d.period))
+    .attr('width', x.bandwidth())
+    .attr('y', d => y(d.total))
+    .attr('height', d => Math.max(0, y(0) - y(d.total)));
+  bars.exit().remove();
+
+  g.selectAll('.bar-value')
+    .data(periods, d => d.period)
+    .join('text')
+    .attr('class', 'bar-value')
+    .attr('text-anchor', 'middle')
+    .attr('font-size', 14)
+    .attr('font-weight', 700)
+    .attr('fill', '#333')
+    .attr('x', d => x(d.period) + x.bandwidth() / 2)
+    .attr('y', d => y(d.total) - 8)
+    .text(d => String(d.total));
 
   g.selectAll('.change-label')
     .data(['-17%'])
@@ -341,20 +377,18 @@ const drawChart2 = (g, iW, iH) => {
 };
 
 const drawChart3 = (g, iW, iH) => {
-  const igKeys = incomeGroups.map(d => d.key);
-  const periods = [{ period: '2015–2019' }, { period: '2021–2025' }];
-  for (const ig of incomeGroups) {
-    periods[0][ig.key] = ig.p1;
-    periods[1][ig.key] = ig.p2;
-  }
-  const series = d3.stack().keys(igKeys)(periods);
+  const periods = [
+    { period: '2015–2019', total: 18747 },
+    { period: '2021–2025', total: 5559 }
+  ];
+  const maxTotal = Math.max(...periods.map(p => p.total));
 
   const x = d3
     .scaleBand()
     .domain(periods.map(p => p.period))
     .range([0, iW])
     .padding(0.35);
-  const y = d3.scaleLinear().domain([0, 105]).range([iH, 0]);
+  const y = d3.scaleLinear().domain([0, maxTotal * 1.2]).range([iH, 0]);
 
   g.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis axis').attr('transform', `translate(0,${iH})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8)).call(applyXStyle);
 
@@ -365,67 +399,62 @@ const drawChart3 = (g, iW, iH) => {
     .call(
       d3
         .axisLeft(y)
-        .ticks(5)
-        .tickFormat(d => (d === 100 ? `${d}%` : `${d}`))
+        .tickValues([0, 5000, 10000, 15000, 20000])
+        .tickFormat(d => fmtSpace(d))
         .tickSize(-iW)
     )
     .call(applyGridStyle);
 
-  const layers = g.selectAll('.layer').data(series, d => d.key);
-  const allLayers = layers
+  // Connecting trapezoid
+  const x1right = x(periods[0].period) + x.bandwidth();
+  const x2left = x(periods[1].period);
+  const connPoints = [[x1right, y(periods[0].total)], [x2left, y(periods[1].total)], [x2left, iH], [x1right, iH]]
+    .map(p => p.join(',')).join(' ');
+  g.selectAll('.bar-connector').data([null]).join('polygon').attr('class', 'bar-connector').attr('fill', '#f7dfdf').attr('points', connPoints);
+
+  const bars = g.selectAll('.bar-simple').data(periods, d => d.period);
+  bars
     .enter()
-    .append('g')
-    .attr('class', d => `layer layer-${d.key}`)
-    .attr('fill', d => incomeGroups.find(ig => ig.key === d.key)?.color ?? '#999')
-    .merge(layers);
-  layers.exit().remove();
+    .append('rect')
+    .attr('class', 'bar-simple')
+    .attr('fill', '#009edb')
+    .attr('x', d => x(d.period))
+    .attr('width', x.bandwidth())
+    .attr('y', d => y(d.total))
+    .attr('height', d => Math.max(0, y(0) - y(d.total)));
+  bars
+    .transition()
+    .duration(300)
+    .attr('x', d => x(d.period))
+    .attr('width', x.bandwidth())
+    .attr('y', d => y(d.total))
+    .attr('height', d => Math.max(0, y(0) - y(d.total)));
+  bars.exit().remove();
 
-  allLayers.each(function (layerData) {
-    const layer = d3.select(this);
-    const rects = layer.selectAll('rect').data(layerData, d => d.data.period);
-    rects
-      .enter()
-      .append('rect')
-      .attr('x', d => x(d.data.period))
-      .attr('width', x.bandwidth())
-      .attr('y', d => y(d[1]))
-      .attr('height', d => Math.max(0, y(d[0]) - y(d[1])));
-    rects
-      .transition()
-      .duration(300)
-      .attr('x', d => x(d.data.period))
-      .attr('width', x.bandwidth())
-      .attr('y', d => y(d[1]))
-      .attr('height', d => Math.max(0, y(d[0]) - y(d[1])));
-    rects.exit().remove();
-  });
-
-  const labelData = incomeGroups.map(item => {
-    let cum = 0;
-    for (const ig of incomeGroups) {
-      if (ig.key === item.key) break;
-      cum += ig.p2;
-    }
-    return { ...item, midY: y(cum + item.p2 / 2) };
-  });
-
-  g.selectAll('.income-change')
-    .data(labelData.filter(d => d.key === 'low'), d => d.key)
+  g.selectAll('.bar-value')
+    .data(periods, d => d.period)
     .join('text')
-    .attr('class', 'income-change')
-    .attr('x', x('2021–2025') + x.bandwidth() + 8)
-    .attr('y', d => d.midY + 5)
-    .attr('dy', '0.35em')
-    .attr('font-size', d => (d.key === 'low' ? 14 : 11))
-    .attr('font-weight', d => (d.key === 'low' ? 700 : 400))
-    .attr('fill', d => d.color)
+    .attr('class', 'bar-value')
+    .attr('text-anchor', 'middle')
+    .attr('font-size', 14)
+    .attr('font-weight', 700)
+    .attr('fill', '#333')
+    .attr('x', d => x(d.period) + x.bandwidth() / 2)
+    .attr('y', d => y(d.total) - 8)
+    .text(d => fmtSpace(d.total));
+
+  g.selectAll('.change-label')
+    .data(['-70%'])
+    .join('text')
+    .attr('class', 'change-label')
+    .attr('x', iW / 2)
+    .attr('y', y(maxTotal * 1.1))
+    .attr('text-anchor', 'middle')
+    .attr('font-size', 32)
+    .attr('font-weight', 700)
+    .attr('fill', '#ed1847')
     .style('opacity', 1)
-    .each(function (d) {
-      const el = d3.select(this);
-      el.selectAll('tspan').remove();
-      el.append('tspan').attr('x', el.attr('x')).attr('dy', '-0.6em').text('Value');
-      el.append('tspan').attr('x', el.attr('x')).attr('dy', '1.2em').text(d.change);
-    });
+    .text(d => d);
 };
 
 // --- D3 Chart component ---
@@ -496,16 +525,51 @@ const D3Chart = ({ step, width, height }) => {
 
 // --- Legend ---
 
+const STEP2_LEGEND = [
+  { key: 'ai', label: 'AI infrastructure and related technologies', color: '#004987' },
+  { key: 'semi', label: 'Semiconductors', color: '#fbaf17' },
+  { key: 'other', label: 'Other', color: '#e0e0e0' }
+];
+
 const Legend = ({ step }) => {
-  const items = step <= 2 ? sectors : step === 3 ? mfgInvestors : incomeGroups;
+  if (step <= 1) {
+    return (
+      <div className="strategic_legend">
+        <div className="legend_item">
+          <span className="legend_swatch" style={{ background: '#009edb' }} />
+          <span>Total</span>
+        </div>
+      </div>
+    );
+  }
+  if (step === 2) {
+    return (
+      <div className="strategic_legend strategic_legend--column">
+        {STEP2_LEGEND.map(s => (
+          <div key={s.key} className="legend_item">
+            <span className="legend_swatch" style={{ background: s.color }} />
+            <span>{s.label}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  if (step === 3) {
+    return (
+      <div className="strategic_legend">
+        <div className="legend_item">
+          <span className="legend_swatch" style={{ background: '#009edb' }} />
+          <span>Total</span>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="strategic_legend">
-      {items.map(s => (
-        <div key={s.key} className="legend_item">
-          <span className="legend_swatch" style={{ background: step === 2 ? getSectorColor(s.key, true) : s.color }} />
-          <span>{s.label}</span>
-        </div>
-      ))}
+      <div className="legend_item">
+        <span className="legend_swatch" style={{ background: '#009edb' }} />
+        <span>Low-income economies</span>
+      </div>
     </div>
   );
 };
