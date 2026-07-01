@@ -78,12 +78,7 @@
         box-sizing: border-box;
         display: flex;
         min-height: 150svh;
-        opacity: 0.35;
         padding: 0 20px 0 40px;
-        transition: opacity 0.5s ease;
-        &.active {
-          opacity: 1;
-        }
         .strategic_panel_inner {
           background: var(--un-color-yellow-lightest);
           border-radius: 10px;
@@ -126,9 +121,9 @@
         order: 0;
         padding: 8px 16px;
         position: sticky;
-        top: 0;
+        top: 25svh;
         width: 100%;
-        z-index: 1;
+        z-index: 0;
         .strategic_panel_inner {
           height: 100%;
           .strategic_chart_wrap {
@@ -141,16 +136,18 @@
         display: contents;
         .strategic_panel {
           box-sizing: border-box;
-          min-height: 100svh;
-          opacity: 1;
-          padding: 40px 20px;
-          transition: none;
+          min-height: 125svh;
+          padding: 40px 0;
+          position: relative;
           width: 100%;
+          z-index: 2;
           &:first-child {
             align-items: center;
             display: flex;
             min-height: 100svh;
             order: -1;
+            padding: 20px;
+            z-index: 0;
           }
           &:not(:first-child) {
             order: 1;
@@ -159,7 +156,8 @@
             padding-bottom: 20svh;
           }
           .strategic_panel_inner {
-            max-width: 480px;
+            border-radius: 0;
+            max-width: none;
             width: 100%;
           }
         }
