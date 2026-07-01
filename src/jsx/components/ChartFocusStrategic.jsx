@@ -570,7 +570,7 @@ const ChartFocusStrategic = () => {
         {panels.map((panel, i) => (
           <div
             key={panel.step}
-            className={`strategic_panel${activeStep === i ? ' active' : ''}`}
+            className="strategic_panel"
             ref={el => {
               panelRefs.current[i] = el;
             }}
