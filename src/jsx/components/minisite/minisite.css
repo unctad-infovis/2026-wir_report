@@ -5,7 +5,7 @@
 #app-root-2026-wir_report .app {
   .container_chapter {
     background: #fff;
-    border-bottom: 40px solid var(--un-color-blue);
+    border-bottom: 40px solid var(--main-color);
     padding: 40px 0;
     position: relative;
     width: 100%;
@@ -51,19 +51,21 @@
     }
   }
   figure {
-    max-width: 800px;
     margin: auto auto 20px auto;
+    max-width: 800px;
   }
   .highlight_container {
-    background: var(--un-color-blue-lightest);
+    background: var(--main-color);
     border-radius: 10px;
     box-sizing: content-box;
+    color: #fff;
     margin: 40px auto;
     max-width: 700px;
     padding: 20px 20px 1px 20px;
     h3 {
       font-weight: var(--un-font-weight-bolder);
     }
+    ul li,
     p {
       font-size: var(--un-font-size-highlight);
       line-height: var(--un-line-height-large);

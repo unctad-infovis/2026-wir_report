@@ -30,6 +30,11 @@
           flex-wrap: wrap;
           gap: 5px 14px;
           padding-bottom: 14px;
+          &.strategic_legend--column {
+            flex-direction: column;
+            flex-wrap: nowrap;
+            gap: 5px;
+          }
           .legend_item {
             align-items: center;
             color: #555;
@@ -80,7 +85,7 @@
         min-height: 150svh;
         padding: 0 20px 0 40px;
         .strategic_panel_inner {
-          background: var(--un-color-yellow-lightest);
+          background: var(--main-color);
           border-radius: 10px;
           box-sizing: border-box;
           max-width: 480px;
@@ -89,7 +94,7 @@
             display: none;
           }
           .strategic_headline {
-            color: #1a1a1a;
+            color: #fff;
             font-size: var(--un-font-size-xl);
             font-weight: 700;
             line-height: var(--un-line-height-normal);
@@ -97,16 +102,16 @@
             max-width: none;
           }
           .strategic_body {
-            color: #444;
-            font-size: 15px;
-            line-height: 1.6;
+            color: #fff;
+            font-size: var(--un-text-size-normal);
+            line-height: var(--un-line-height-large);
             margin: 0 0 16px 0;
             max-width: none;
           }
           .strategic_source {
-            color: var(--un-color-grey-text);
-            font-size: var(--un-font-size-xxxxs);
-            line-height: var(--un-line-height-normal);
+            color: #ccc;
+            font-size: 12px;
+            line-height: var(--un-line-height-large);
             margin: 0;
             max-width: none;
           }

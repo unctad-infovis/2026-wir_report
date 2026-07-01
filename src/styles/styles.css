@@ -28,18 +28,31 @@
         line-height: var(--un-line-height-small);
       }
     }
-    p {
+    p,
+    ul {
       font-size: var(--un-font-size-normal);
       font-weight: var(--un-font-weight-normal);
       line-height: var(--un-line-height-normal);
     }
     h3,
     h4,
-    p {
+    p,
+    ul {
       box-sizing: border-box;
       margin: auto auto 20px auto;
       max-width: 700px;
       padding: 0 10px;
+    }
+
+    p,
+    ul {
+      a {
+        color: #000;
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
 
     /* Layouts */
