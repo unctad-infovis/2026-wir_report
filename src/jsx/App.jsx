@@ -40,7 +40,7 @@ const App = ({ meta }) => {
   const appRef = useRef();
 
   useEffect(() => {
-    const elements = appRef.current.querySelectorAll('.container_chapter p, .container_chapter ul, .container_chapter ol, .container_chapter h3, .container_chapter blockquote');
+    const elements = appRef.current.querySelectorAll('.container_chapter > p, .container_chapter > ul, .container_chapter > ol, .container_chapter > h3, .container_chapter > figure > blockquote, .container_chapter > .highlight_container');
 
     // Options for the observer (when the p tag is 50% in the viewport)
     const options = {
