@@ -8,14 +8,40 @@ import formatNr from './../helpers/FormatNr.js';
 import loadFile from './../helpers/LoadFile.js';
 import roundNr from './../helpers/RoundNr.js';
 
+import './../../styles/colors.css';
 import './ChartFDIExplorer.css';
 
 // --- Constants ---
 const startYear = 1990;
 const endYear = 2025;
 const allYears = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
-const countryColors = ['#009edb', '#ed1847', '#fbaf17', '#aea29a', '#a05fb4', '#72bf44'];
 const dataFile = `assets/data/2026-fdi_explorer.json`;
+
+const getColors = () => {
+  const v = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return [
+    v('--un-color-blue'),
+    v('--un-color-yellow'),
+    v('--un-color-purple'),
+    v('--un-color-green'),
+    v('--un-color-blue-light'),
+    v('--un-color-yellow-light'),
+    v('--un-color-purple-light'),
+    v('--un-color-green-light'),
+    v('--un-color-blue-dark'),
+    v('--un-color-yellow-dark'),
+    v('--un-color-purple-dark'),
+    v('--un-color-green-dark'),
+    v('--un-color-blue-lightest'),
+    v('--un-color-yellow-lightest'),
+    v('--un-color-purple-lightest'),
+    v('--un-color-green-lightest'),
+    v('--un-color-blue-darkest'),
+    v('--un-color-yellow-darkest'),
+    v('--un-color-purple-darkest'),
+    v('--un-color-green-darkest')
+  ];
+};
 
 // --- Highcharts global setup ---
 Highcharts.setOptions({
@@ -57,6 +83,7 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
   const [visible, setVisible] = useState({});
   const [legend, setLegend] = useState([]);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const chartRef = useRef(null);
   const containerRef = useRef(null);
@@ -167,7 +194,7 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
         style: { color: '#7c7067', fontWeight: 400 },
         zoomType: 'x'
       },
-      countryColors: countryColors,
+      colors: getColors(),
       credits: { enabled: false },
       exporting: {
         buttons: {
@@ -323,12 +350,21 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
   const chooseActiveData = useCallback(
     area => {
       if (!chartRef.current) return;
+      const isSelecting = !selected[area.name];
+      const shouldDeselectWorld = isSelecting && area.name !== 'World' && selected['World'] === true;
       chartRef.current.series.forEach((serie, i) => {
         if (serie.name === area.name) {
-          chartRef.current.series[i].setVisible(!selected[area.name], false);
+          chartRef.current.series[i].setVisible(isSelecting, false);
+        }
+        if (shouldDeselectWorld && serie.name === 'World') {
+          chartRef.current.series[i].setVisible(false, false);
         }
       });
-      setSelected(prev => ({ ...prev, [area.name]: !prev[area.name] }));
+      setSelected(prev => {
+        const next = { ...prev, [area.name]: isSelecting };
+        if (shouldDeselectWorld) next['World'] = false;
+        return next;
+      });
       toggleLegendItems();
       chartRef.current.redraw();
     },
@@ -380,7 +416,8 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
 
       <div className="container_chart_fdi_explorer" style={{ opacity: isInteractive ? 1 : 0.1, pointerEvents: isInteractive ? 'all' : 'none', transition: 'opacity 0.9s ease' }}>
         <div className="layout">
-          <div className="left_container">
+          <div className={`left_container${menuOpen ? ' menu-open' : ''}`}>
+            <button className="close_toggle" onClick={() => setMenuOpen(false)} type="button">&#10005; Close</button>
             <div className="name_container">
               <h4>Foreign Direct Investments (FDI)</h4>
             </div>
@@ -412,6 +449,9 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
             </div>
           </div>
           <div className="right_container">
+            <button aria-expanded={menuOpen} className="menu_toggle" onClick={() => setMenuOpen(o => !o)} type="button">
+              &#9776; Select economy / region
+            </button>
             <div className="title_container">
               <h4>By region and economy, thousands of dollars, 1990–2025</h4>
               <div className="options_container">

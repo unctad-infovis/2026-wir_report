@@ -28,8 +28,8 @@
   */
   --un-color-yellow-dark: #d67c29;
   --un-color-yellow-darkest: #b06e2a;
-  --un-color-yellow-lightest: #fff4bf;
   --un-color-yellow-light: #ffd48e;
+  --un-color-yellow-lightest: #fff4bf;
   --un-color-yellow: #fbaf17;
 
   /*
@@ -37,8 +37,8 @@
   */
   --un-color-grey-dark: #6e6259;
   --un-color-grey-darkest: #4f4740;
-  --un-color-grey-lightest: #ebeae6;
   --un-color-grey-light: #ded9d5;
+  --un-color-grey-lightest: #ebeae6;
   --un-color-grey: #aea29a;
   /* Web colors for text */
   --un-color-grey-text: #7c7067;
@@ -46,9 +46,9 @@
   /*
   * PURPLE
   */
-  --un-color-purple-dark: #381f75;
+  --un-color-purple-dark: #5b2c86;
   --un-color-purple-darkest: #381f75;
-  --un-color-purple-light: #381f75;
+  --un-color-purple-light: #d5b4d6;
   --un-color-purple-lightest: #e4d7e8;
   --un-color-purple: #a05fb4;
   /* Web colors for text */
@@ -60,8 +60,8 @@
   */
   --un-color-green-dark: #006747;
   --un-color-green-darkest: #00562e;
-  --un-color-green-lightest: #e6efd0;
   --un-color-green-light: #cee3a0;
+  --un-color-green-lightest: #e6efd0;
   --un-color-green: #72bf44;
   /* Web colors for text */
   --un-color-green-text: #27833a;

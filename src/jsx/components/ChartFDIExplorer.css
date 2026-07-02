@@ -1,18 +1,9 @@
 #app-root-2026-wir_report .app {
   figure.container_chart_fdi_explorer_wrapper {
     background-color: #111;
-    &.standalone {
-      background-color: #fff;
-      .container_chart_fdi_explorer {
-        height: auto;
-        min-height: 560px;
-        position: relative;
-        .layout {
-          color: #333;
-        }
-      }
-    }
     box-sizing: border-box;
+    display: block;
+    margin: 0;
     padding: 0 10px;
     position: relative;
     width: 100%;
@@ -47,9 +38,16 @@
       height: 100vh;
       position: sticky;
       top: 0;
+      .menu_toggle {
+        display: none;
+      }
+      .close_toggle {
+        display: none;
+      }
       .layout {
         color: #fff;
         display: flex;
+        gap: 10px;
         margin: auto auto;
         max-width: 1200px;
         overflow-x: auto;
@@ -82,6 +80,7 @@
                   border-radius: 4px;
                   border: 1px solid #ccc;
                   box-sizing: border-box;
+                  font-size: var(--un-font-size-xs);
                   outline: none;
                   padding: 5px 7px 3px 7px;
                   transition:
@@ -97,40 +96,39 @@
               }
               .selection_list {
                 font-size: var(--un-font-size-xxs);
-                height: 340px;
+                height: 330px;
                 line-height: var(--un-line-height-normal);
                 list-style-type: none;
                 margin: 0;
                 overflow-x: hidden;
                 overflow-y: scroll;
                 padding: 0;
-                label {
-                  cursor: pointer;
-                  display: block;
-                  font-weight: var(--un-font-weight-normal);
-                  margin: 0;
-                  .input_container {
-                    vertical-align: middle;
-                  }
-                  .label_container {
-                    margin-left: 3px;
-                    vertical-align: middle;
+                li {
+                  margin-block-end: 0;
+                  label {
+                    cursor: pointer;
+                    display: block;
+                    font-weight: var(--un-font-weight-normal);
+                    margin: 0;
+                    .input_container {
+                      vertical-align: middle;
+                    }
+                    .label_container {
+                      margin-left: 3px;
+                      vertical-align: middle;
+                    }
                   }
                 }
               }
             }
           }
           &.right_container {
-            min-width: 730px;
-            width: 100%;
+            min-width: 0;
+            padding-right: 10px;
             .title_container {
               .options_container {
                 float: right;
-                margin-top: -1px;
-                label {
-                  display: inline-block;
-                  margin-right: 20px;
-                }
+                margin-top: 5px;
                 .button_group {
                   border-left: 1px solid #ccc;
                   display: inline-block;
@@ -233,10 +231,7 @@
                 }
               }
               .legend_container {
-                height: 20px;
                 margin-bottom: 10px;
-                overflow-x: hidden;
-                overflow-y: scroll;
                 padding-right: 70px;
                 .legend_button {
                   background-color: transparent;
@@ -267,6 +262,94 @@
               a:hover {
                 text-decoration: none;
               }
+            }
+          }
+        }
+      }
+    }
+    &.standalone {
+      background-color: #fff;
+      .container_chart_fdi_explorer {
+        height: auto;
+        min-height: 560px;
+        position: relative;
+        .layout {
+          color: #333;
+        }
+      }
+    }
+    @media (max-width: 800px) {
+      .container_chart_fdi_explorer {
+        height: auto;
+        min-height: 100svh;
+        .layout {
+          overflow: hidden;
+          position: relative;
+          .close_toggle {
+            background: transparent;
+            border: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            cursor: pointer;
+            display: block;
+            font-size: var(--un-font-size-xs);
+            margin-bottom: 10px;
+            padding: 8px 0 12px 0;
+            text-align: right;
+            width: 100%;
+          }
+          .left_container {
+            background: #111;
+            height: 100%;
+            left: 0;
+            max-width: none;
+            min-width: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            transform: translateX(-100%);
+            transition: transform 0.35s ease;
+            width: 260px;
+            z-index: 15;
+            &.menu-open {
+              transform: translateX(0);
+            }
+          }
+          .right_container {
+            flex: 1;
+            min-width: 0;
+            width: 100%;
+            .menu_toggle {
+              background: transparent;
+              border: 0;
+              border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+              color: #fff;
+              cursor: pointer;
+              display: block;
+              font-size: var(--un-font-size-xs);
+              margin-bottom: 8px;
+              padding: 6px 0 10px 0;
+              text-align: left;
+              width: 100%;
+            }
+          }
+        }
+      }
+      &.standalone {
+        .container_chart_fdi_explorer {
+          .layout {
+            .right_container {
+              .menu_toggle {
+                border-bottom-color: rgba(0, 0, 0, 0.15);
+                color: #333;
+              }
+            }
+            .close_toggle {
+              border-bottom-color: rgba(0, 0, 0, 0.15);
+              color: #333;
+            }
+            .left_container {
+              background: #fff;
             }
           }
         }
