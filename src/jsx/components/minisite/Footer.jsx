@@ -18,7 +18,7 @@ const defaultMediaLinks = [
   { label: 'Digital assets', url: false }
 ];
 
-function Footer({ languageLinks = defaultLanguageLinks, launchEventTitle = '', launchEventUrl = '', mediaLinks = defaultMediaLinks, reportUrl = '#', title = '' }) {
+function Footer({ languageLinks = defaultLanguageLinks, launchEventTitle = '', launchEventUrl = '', mediaLinks = defaultMediaLinks, reportUrl = '', title = '' }) {
   return (
     <div className="footer_container">
       <h2>What do you want to do next?</h2>
