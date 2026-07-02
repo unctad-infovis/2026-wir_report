@@ -10,15 +10,16 @@
     position: relative;
     width: 100%;
     z-index: 2;
-    h3,
-    p,
-    blockquote,
-    ol,
-    ul {
+    > div.highlight_container,
+    > h3,
+    > p,
+    > figure > blockquote,
+    > ol,
+    > ul {
       opacity: 0;
       &.visible {
         opacity: 1;
-        transition: opacity 1.5s ease-in-out;
+        transition: opacity 1s ease-in-out;
       }
     }
     ul {
