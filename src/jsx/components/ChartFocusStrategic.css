@@ -108,12 +108,16 @@
             margin: 0 0 16px 0;
             max-width: none;
           }
+          .strategic_note,
           .strategic_source {
             color: #ccc;
             font-size: 12px;
             line-height: var(--un-line-height-large);
             margin: 0;
             max-width: none;
+          }
+          .strategic_source {
+            margin-bottom: 5px;
           }
         }
       }

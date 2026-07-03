@@ -6,6 +6,7 @@ import './Header.css';
 
 function Header({ bg_image_url, chapters, full_report_url, overview_url, subtitle, title, year, url }) {
   const bgSrc = bg_image_url?.startsWith('http') ? bg_image_url : `${basePath()}${bg_image_url}`;
+  const scrollTo = selector => window.appRef.current.querySelector(selector)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   return (
     <div className="container_header_wrapper" style={{ backgroundImage: `url(${bgSrc})` }}>
       <div className="container_header">
@@ -30,7 +31,7 @@ function Header({ bg_image_url, chapters, full_report_url, overview_url, subtitl
           </div>
           <div className="container_chapters_navigation">
             {chapters.map((chapter, i) => (
-              <button onClick={() => scrollTo(`.chapter_header_${i + 1}`, `Chapter ${i + 1}`)} type="button" key={chapter.title}>
+              <button onClick={() => scrollTo(`.container_chapter_${i + 1}`)} type="button" key={chapter.title}>
                 <div className="chapter_navigation">
                   <div className="chapter_title">
                     <h3>{chapter.title}</h3>

@@ -180,6 +180,7 @@
                 .chapter_download_button {
                   color: #fff;
                   font-size: 0;
+                  height: 30px;
                   margin-top: -4px;
                   @media all and (max-width: 970px) {
                     margin-top: 0;
