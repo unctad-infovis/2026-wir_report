@@ -4,7 +4,6 @@
     box-sizing: border-box;
     display: block;
     margin: 0;
-    padding: 0 10px;
     position: relative;
     width: 100%;
     z-index: 3;
@@ -48,6 +47,7 @@
         color: #fff;
         display: flex;
         gap: 10px;
+        padding: 0 0 0 5px;
         margin: auto auto;
         max-width: 1200px;
         overflow-x: auto;
@@ -321,13 +321,13 @@
             width: 100%;
             .menu_toggle {
               background: transparent;
-              border: 0;
               border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+              border: 0;
               color: #fff;
               cursor: pointer;
               display: block;
               font-size: var(--un-font-size-xs);
-              margin-bottom: 8px;
+              margin: 0 0 8px 5px;
               padding: 6px 0 10px 0;
               text-align: left;
               width: 100%;

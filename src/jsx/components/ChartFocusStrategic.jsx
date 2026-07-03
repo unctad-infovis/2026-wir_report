@@ -30,57 +30,44 @@ const mfgInvestors = [
   { key: 'jp', label: 'Japan', color: '#a05fb4', p1: 105, p2: 52 },
   { key: 'other', label: 'Others', color: '#aea29a', p1: 291, p2: 245 }
 ];
-
-const incomeGroups = [
-  { key: 'high', label: 'High income', color: '#009edb', p1: 42, p2: 46, change: '-9%' },
-  { key: 'upper', label: 'Upper-middle income', color: '#fbaf17', p1: 38, p2: 31, change: '-33%' },
-  { key: 'lower', label: 'Lower-middle income', color: '#004987', p1: 18, p2: 23, change: '+6%' },
-  { key: 'low', label: 'Low income', color: '#b06e2a', p1: 2, p2: 1, change: '-70%' }
-];
-
 // --- Panels ---
 
 const panels = [
   {
-    step: 0,
-    headline: 'Policymakers have become more strategic – and so have investors.',
-    body: null,
-    source: null
-  },
-  {
     step: 1,
     headline: 'Investment is booming in five strategic sectors.',
-    body: 'Announced greenfield investment in these sectors rose from $109 billion in 2020 to $576 billion in 2025 – an increase of more than fivefold in five years.',
-    source: 'Source: UN Trade and Development (UNCTAD), based on fDi Markets. Data for 2025 annualized based on information available as of 30 November.'
+    body: 'Announced greenfield investment in these sectors rose from $109 billion in 2020 to $576 billion in 2025 – an increase of more than fivefold.',
+    source: 'UN Trade and Development (UNCTAD), based on fDi Markets. Data for 2025 annualized based on information available as of 30 November.',
+    note: 'The sectors are AI infrastructure and AI-related technologies, Semiconductors, Energy transition technologies and services, Critical minerals, Other advanced and sensitive technologies.'
   },
   {
     step: 2,
     headline: 'AI infrastructure is the largest segment. Semiconductors are growing fastest.',
     body: 'AI infrastructure attracted $341 billion in 2025 alone. Semiconductors recorded the highest compound annual growth rate – 54% – between 2020 and 2025.',
-    source: 'Source: UN Trade and Development (UNCTAD), based on fDi Markets. Data for 2025 annualized based on information available as of 30 November.'
+    source: 'UN Trade and Development (UNCTAD), based on fDi Markets. Data for 2025 annualized based on information available as of 30 November.',
+    note: 'The sectors are AI infrastructure and AI-related technologies, Semiconductors, Energy transition technologies and services, Critical minerals, Other advanced and sensitive technologies.'
   },
   {
     step: 3,
     headline: 'But traditional manufacturing moved in the opposite direction.',
     body: 'Announced greenfield investment in manufacturing outside strategic sectors fell 17% between 2015–2019 and 2021–2025. The decline affected agribusiness, consumer goods, textiles and traditional transport equipment – industries that have historically offered developing countries entry points into global production networks.',
-    source: 'Source: UN Trade and Development (UNCTAD), based on fDi Markets.'
+    source: 'UN Trade and Development (UNCTAD), based on fDi Markets.'
   },
   {
     step: 4,
     headline: 'The most vulnerable economies saw the deepest declines.',
     body: 'Low-income economies saw manufacturing investment fall by 70%. The most accessible routes into global production networks are narrowing for those who need them most.',
-    source: 'Source: UN Trade and Development (UNCTAD), based on fDi Markets.'
+    source: 'UN Trade and Development (UNCTAD), based on fDi Markets.'
   }
 ];
 
 // --- Chart descriptions ---
 
 const CHART_DESCRIPTIONS = [
-  'Announced greenfield investment in strategic sectors, billions of dollars and percentage of global greenfield investment, 2020–2025',
-  'Announced greenfield investment in strategic sectors, billions of dollars and percentage of global greenfield investment, 2020–2025',
-  'Announced greenfield investment in strategic sectors, billions of dollars and percentage of global greenfield investment, 2020–2025',
-  'Announced greenfield investment in manufacturing outside strategic sectors, by largest source economy, billions of dollars, 2015–2019 and 2021–2025',
-  'Announced greenfield investment in manufacturing outside strategic sectors to low-income economies, millions of dollars, 2015–2019 and 2021–2025'
+  'Announced greenfield investment in strategic sectors, billions of dollars of global greenfield investment, 2020–2025',
+  'Announced greenfield investment in strategic sectors, billions of dollars of global greenfield investment, 2020–2025',
+  'Announced greenfield investment in manufacturing outside strategic sectors, billions of dollars, 2015–2019 and 2021–2025',
+  'Announced greenfield investment in manufacturing outside strategic sectors to low-income economies, billions of dollars, 2015–2019 and 2021–2025'
 ];
 
 // --- Module-level constants and helpers (stable references, not component scope) ---
@@ -327,8 +314,14 @@ const drawChart2 = (g, iW, iH) => {
   // Connecting trapezoid between the two bars
   const x1right = x(periods[0].period) + x.bandwidth();
   const x2left = x(periods[1].period);
-  const connPoints = [[x1right, y(periods[0].total)], [x2left, y(periods[1].total)], [x2left, iH], [x1right, iH]]
-    .map(p => p.join(',')).join(' ');
+  const connPoints = [
+    [x1right, y(periods[0].total)],
+    [x2left, y(periods[1].total)],
+    [x2left, iH],
+    [x1right, iH]
+  ]
+    .map(p => p.join(','))
+    .join(' ');
   g.selectAll('.bar-connector').data([null]).join('polygon').attr('class', 'bar-connector').attr('fill', '#f7dfdf').attr('points', connPoints);
 
   const bars = g.selectAll('.bar-simple').data(periods, d => d.period);
@@ -378,8 +371,8 @@ const drawChart2 = (g, iW, iH) => {
 
 const drawChart3 = (g, iW, iH) => {
   const periods = [
-    { period: '2015–2019', total: 18747 },
-    { period: '2021–2025', total: 5559 }
+    { period: '2015–2019', total: 18.7 },
+    { period: '2021–2025', total: 5.6 }
   ];
   const maxTotal = Math.max(...periods.map(p => p.total));
 
@@ -388,7 +381,10 @@ const drawChart3 = (g, iW, iH) => {
     .domain(periods.map(p => p.period))
     .range([0, iW])
     .padding(0.35);
-  const y = d3.scaleLinear().domain([0, maxTotal * 1.2]).range([iH, 0]);
+  const y = d3
+    .scaleLinear()
+    .domain([0, maxTotal * 1.2])
+    .range([iH, 0]);
 
   g.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis axis').attr('transform', `translate(0,${iH})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8)).call(applyXStyle);
 
@@ -399,8 +395,8 @@ const drawChart3 = (g, iW, iH) => {
     .call(
       d3
         .axisLeft(y)
-        .tickValues([0, 5000, 10000, 15000, 20000])
-        .tickFormat(d => fmtSpace(d))
+        .tickValues([0, 5, 10, 15, 20])
+        .tickFormat(d => d.toFixed(1))
         .tickSize(-iW)
     )
     .call(applyGridStyle);
@@ -408,8 +404,14 @@ const drawChart3 = (g, iW, iH) => {
   // Connecting trapezoid
   const x1right = x(periods[0].period) + x.bandwidth();
   const x2left = x(periods[1].period);
-  const connPoints = [[x1right, y(periods[0].total)], [x2left, y(periods[1].total)], [x2left, iH], [x1right, iH]]
-    .map(p => p.join(',')).join(' ');
+  const connPoints = [
+    [x1right, y(periods[0].total)],
+    [x2left, y(periods[1].total)],
+    [x2left, iH],
+    [x1right, iH]
+  ]
+    .map(p => p.join(','))
+    .join(' ');
   g.selectAll('.bar-connector').data([null]).join('polygon').attr('class', 'bar-connector').attr('fill', '#f7dfdf').attr('points', connPoints);
 
   const bars = g.selectAll('.bar-simple').data(periods, d => d.period);
@@ -441,7 +443,7 @@ const drawChart3 = (g, iW, iH) => {
     .attr('fill', '#333')
     .attr('x', d => x(d.period) + x.bandwidth() / 2)
     .attr('y', d => y(d.total) - 8)
-    .text(d => fmtSpace(d.total));
+    .text(d => d.total.toFixed(1));
 
   g.selectAll('.change-label')
     .data(['-70%'])
@@ -464,7 +466,6 @@ const D3Chart = ({ step, width, height }) => {
   const prevStepRef = useRef(null);
 
   // Init: clear SVG and pre-render all chart types when dimensions change
-  // biome-ignore lint/correctness/useExhaustiveDependencies: drawChart1/2/3 are stable module-level functions
   useEffect(() => {
     if (!svgRef.current) return;
     const iW = width - CHART_MARGIN.left - CHART_MARGIN.right;
@@ -474,7 +475,7 @@ const D3Chart = ({ step, width, height }) => {
     const root = svg.append('g').attr('class', 'root').attr('transform', `translate(${CHART_MARGIN.left},${CHART_MARGIN.top})`);
     prevStepRef.current = null;
     if (iW <= 0 || iH <= 0) return;
-    [1, 2, 3].forEach(t => root.append('g').attr('class', `chart${t}`).style('opacity', 0).style('transition', 'opacity 0.9s ease'));
+    for (const t of [1, 2, 3]) root.append('g').attr('class', `chart${t}`).style('opacity', 0).style('transition', 'opacity 0.9s ease');
     drawChart1(root.select('.chart1'), iW, iH, false);
     drawChart2(root.select('.chart2'), iW, iH);
     drawChart3(root.select('.chart3'), iW, iH);
@@ -491,13 +492,13 @@ const D3Chart = ({ step, width, height }) => {
     const comingFrom = prevStepRef.current;
     prevStepRef.current = step;
 
-    const getType = s => (s <= 2 ? 1 : s === 3 ? 2 : 3);
+    const getType = s => (s <= 1 ? 1 : s === 2 ? 2 : 3);
     const newType = getType(step);
 
     // Update chart1 highlight when entering or leaving step 2
     if (newType === 1) {
-      const highlight = step === 2;
-      const prevHighlight = comingFrom === 2;
+      const highlight = step === 1;
+      const prevHighlight = comingFrom === 1;
       if (comingFrom === null || highlight !== prevHighlight) {
         drawChart1(root.select('.chart1'), iW, iH, highlight);
       }
@@ -511,7 +512,7 @@ const D3Chart = ({ step, width, height }) => {
       raf2 = requestAnimationFrame(() => {
         const r = d3.select(svgRef.current)?.select('.root');
         if (!r || r.empty()) return;
-        [1, 2, 3].forEach(t => r.select(`.chart${t}`).style('opacity', t === newType ? 1 : 0));
+        for (const t of [1, 2, 3]) r.select(`.chart${t}`).style('opacity', t === newType ? 1 : 0);
       });
     });
     return () => {
@@ -532,7 +533,7 @@ const STEP2_LEGEND = [
 ];
 
 const Legend = ({ step }) => {
-  if (step <= 1) {
+  if (step <= 0) {
     return (
       <div className="strategic_legend">
         <div className="legend_item">
@@ -542,7 +543,7 @@ const Legend = ({ step }) => {
       </div>
     );
   }
-  if (step === 2) {
+  if (step === 1) {
     return (
       <div className="strategic_legend strategic_legend--column">
         {STEP2_LEGEND.map(s => (
@@ -554,7 +555,7 @@ const Legend = ({ step }) => {
       </div>
     );
   }
-  if (step === 3) {
+  if (step === 2) {
     return (
       <div className="strategic_legend">
         <div className="legend_item">
@@ -618,11 +619,7 @@ const ChartFocusStrategic = () => {
     <div className="chart_focus_strategic">
       <div className="strategic_left">
         <div className="strategic_panel_inner">
-          {CHART_DESCRIPTIONS[activeStep] && (
-            <p className="strategic_description">
-              {CHART_DESCRIPTIONS[activeStep]}
-            </p>
-          )}
+          {CHART_DESCRIPTIONS[activeStep] && <p className="strategic_description">{CHART_DESCRIPTIONS[activeStep]}</p>}
           <Legend step={activeStep} />
           <div className="strategic_chart_wrap" ref={chartWrapRef}>
             {chartSize.width > 0 && chartSize.height > 0 && <D3Chart step={activeStep} width={chartSize.width} height={chartSize.height} />}
@@ -645,7 +642,16 @@ const ChartFocusStrategic = () => {
               </p>
               <h3 className="strategic_headline">{panel.headline}</h3>
               {panel.body && <p className="strategic_body">{panel.body}</p>}
-              {panel.source && <p className="strategic_source">{panel.source}</p>}
+              {panel.source && (
+                <p className="strategic_source">
+                  <em>Source:</em> {panel.source}
+                </p>
+              )}
+              {panel.note && (
+                <p className="strategic_note">
+                  <em>Note:</em> {panel.note}
+                </p>
+              )}
             </div>
           </div>
         ))}
