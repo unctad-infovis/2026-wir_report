@@ -1,26 +1,26 @@
 {
   "chapters": [
     {
-      "image_url": "assets/img/2026-wir_report_chapter1.jpg",
+      "image_url": "assets/img/2026-wir_report_chapter1.jpg?v=1",
       "pdf_url": "https://unctad.org/system/files/official-document/wir2026_ch01_en.pdf",
       "subtitle": "Global investment rises, but the recovery is narrow and fragile",
       "title": "International investment trends"
     },
     {
-      "image_url": "assets/img/2026-wir_report_chapter2.jpg",
+      "image_url": "assets/img/2026-wir_report_chapter2.jpg?v=1",
       "pdf_url": "https://unctad.org/system/files/official-document/wir2026_ch02_en.pdf",
       "subtitle": "Investment policy becomes more active, targeted and conditional",
       "title": "Investment policy trends"
     },
     {
-      "image_url": "assets/img/2026-wir_report_chapter3.jpg",
+      "image_url": "assets/img/2026-wir_report_chapter3.jpg?v=1",
       "pdf_url": "https://unctad.org/system/files/official-document/wir2026_ch03_en.pdf",
       "subtitle": "Investment in strategic sectors surges as manufacturing declines",
       "title": "Turbulent era: Trends and policy response"
     }
   ],
   "full_report_url":"https://unctad.org/system/files/official-document/wir2026_en.pdf",
-  "image_url":"assets/img/2026-wir_report_main.jpg",
+  "image_url":"assets/img/2026-wir_report_main.jpg?v=1",
   "overview_url":"https://unctad.org/system/files/official-document/wir2026_overview_en.pdf",
   "show_site_header": true,
   "subtitle":"International Investment in a Turbulent Era",
