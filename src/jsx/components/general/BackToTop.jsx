@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import './BackToTop.css';
 
+const SCROLL_THRESHOLD = 300;
+
 const BackToTop = ({ selector }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 300);
+    const onScroll = () => setVisible(window.scrollY > SCROLL_THRESHOLD);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);

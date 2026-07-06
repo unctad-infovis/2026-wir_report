@@ -1,11 +1,11 @@
-import basePath from './../../helpers/BasePath';
+import { resolveAsset } from './../../helpers/BasePath';
 import ButtonAnchor from './../general/ButtonAnchor.jsx';
 import ButtonShare from './../general/ButtonShare.jsx';
 
 import './Header.css';
 
 function Header({ bg_image_url, chapters, full_report_url, overview_url, subtitle, title, year, url }) {
-  const bgSrc = bg_image_url?.startsWith('http') ? bg_image_url : `${basePath()}${bg_image_url}`;
+  const bgSrc = resolveAsset(bg_image_url);
   const scrollTo = selector => window.appRef.current.querySelector(selector)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   return (
     <div className="container_header_wrapper" style={{ backgroundImage: `url(${bgSrc})` }}>
@@ -38,12 +38,12 @@ function Header({ bg_image_url, chapters, full_report_url, overview_url, subtitl
                     <h3>{chapter.title}</h3>
                   </div>
                   <div className="chapter_image">
-                    <div style={{ backgroundImage: `url(${chapter.image_url?.startsWith('http') ? chapter.image_url : `${basePath()}${chapter.image_url}`})` }} />
+                    <div style={{ backgroundImage: `url(${resolveAsset(chapter.image_url)})` }} />
                   </div>
                   <div className="chapter_meta">
                     <div className="chapter_number">{i + 1}.</div>
                     {chapter.pdf_url && (
-                      <a href={chapter.pdf_url} target="_blank" className="chapter_download_button" aria-label="Download chapter" rel="noreferrer">
+                      <a href={chapter.pdf_url} target="_blank" className="chapter_download_button" aria-label="Download chapter" rel="noreferrer" onClick={e => e.stopPropagation()}>
                         Download chapter
                       </a>
                     )}
