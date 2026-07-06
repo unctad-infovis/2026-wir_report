@@ -28,6 +28,10 @@
         &:hover {
           opacity: 0.75;
         }
+        @media (max-width: 480px) {
+          font-size: var(--un-font-size-normal);
+          padding: 8px 20px;
+        }
       }
     }
 

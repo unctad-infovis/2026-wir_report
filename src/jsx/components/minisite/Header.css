@@ -153,10 +153,10 @@
                 position: relative;
                 div {
                   aspect-ratio: 1 / 1;
-                  background-position: 50% 50%;
-                  background-size: auto 100%;
                   background-blend-mode: darken;
                   background-color: rgba(0, 0, 0, 0.4);
+                  background-position: 50% 50%;
+                  background-size: auto 100%;
                 }
               }
               .chapter_meta {
@@ -179,6 +179,7 @@
                 }
                 .chapter_download_button {
                   color: #fff;
+                  display: none;
                   font-size: 0;
                   height: 30px;
                   margin-top: -4px;
@@ -186,7 +187,7 @@
                     margin-top: 0;
                   }
                   &:before {
-                    background-image: url('https://storage.unctad.org/2025-wir_report/assets/img/icons/icon_download_white.png');
+                    background-image: url('/assets/img/icon_download_white.png');
                     background-size: 100%;
                     content: '';
                     display: block;
@@ -202,16 +203,21 @@
                 }
               }
             }
-            &:hover {
-              .chapter_navigation {
-                background-color: var(--secondary-color);
-                border-color: var(--secondary-color);
-              }
-              .chapter_title {
-                background-color: var(--secondary-color);
-              }
-              .chapter_meta {
-                background-color: var(--secondary-color);
+          }
+          button:hover {
+            .chapter_navigation {
+              background-color: var(--secondary-color);
+              border-color: var(--secondary-color);
+            }
+            .chapter_title {
+              background-color: var(--secondary-color);
+            }
+            .chapter_meta {
+              background-color: var(--secondary-color);
+            }
+            .chapter_image {
+              div {
+                background-color: transparent;
               }
             }
           }

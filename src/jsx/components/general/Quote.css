@@ -35,5 +35,14 @@
         width: calc(139px / 1.5);
       }
     }
+    @media (max-width: 600px) {
+      blockquote {
+        padding: 56px 0 0 0;
+        &:before {
+          height: calc(129px / 2.5);
+          width: calc(139px / 2.5);
+        }
+      }
+    }
   }
 }

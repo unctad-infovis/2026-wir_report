@@ -28,17 +28,10 @@
         line-height: var(--un-line-height-small);
       }
     }
-
-    .container_button_download {
-      padding: 0 10px;
-      p {
-        margin: 0 0 10px 0;
-        max-width: 1000px;
-        width: 100%;
-      }
+    .chapter_download {
+      display: none;
     }
     figure {
-      padding: 0 10px;
       max-width: 1000px;
       img {
         height: 100%;
