@@ -27,6 +27,7 @@ function Header({ bg_image_url, chapters, full_report_url, overview_url, subtitl
             <ButtonAnchor url={'.anchor_videos'} text="Videos" />
             <ButtonAnchor url={'.anchor_podcasts'} text="Podcasts" />
             <ButtonAnchor url={'.anchor_press'} text="Press" />
+            <ButtonAnchor url="https://unctad.org/topic/investment/world-investment-report" text="Regional data" />
             <ButtonAnchor url={'.anchor_fdi_explorer'} text="FDI Explorer" />
           </div>
           <div className="container_chapters_navigation">

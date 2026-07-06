@@ -6,7 +6,8 @@
   .container_chapter {
     background: #fff;
     border-bottom: 40px solid var(--main-color);
-    padding: 40px 0;
+    box-sizing: border-box;
+    padding: 40px 10px;
     position: relative;
     width: 100%;
     z-index: 2;

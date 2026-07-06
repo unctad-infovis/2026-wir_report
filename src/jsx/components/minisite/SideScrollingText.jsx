@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import basePath from './../../helpers/BasePath';
 import './SideScrollingText.css';
 
 const getOpacity = translateX => {
@@ -7,7 +8,7 @@ const getOpacity = translateX => {
   return 1;
 };
 
-const SideScrollingText = ({ header, texts }) => {
+const SideScrollingText = ({ header, image_url, texts }) => {
   const containerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const rafRef = useRef(null);
@@ -31,11 +32,12 @@ const SideScrollingText = ({ header, texts }) => {
   }, []);
 
   const isScrolling = scrollProgress > 0 && scrollProgress < 1;
+  const imgSrc = image_url?.startsWith('http') ? image_url : `${basePath()}${image_url}`;
 
   return (
-    <div className="container_side_scrolling_text" ref={containerRef} style={{ height: `${texts.length * 150}dvh` }}>
+    <div className="container_side_scrolling_text" ref={containerRef} style={{ height: `${texts.length * 150}svh` }}>
       {isScrolling && <div className="header">{header}</div>}
-      {isScrolling && <div className="background" />}
+      {isScrolling && <div className="background" style={{ backgroundImage: `url(${imgSrc})` }} />}
       {isScrolling &&
         texts.map((text, index) => {
           const baseOffset = 100 * (index + 1) + 100;

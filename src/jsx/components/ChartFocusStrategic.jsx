@@ -360,9 +360,9 @@ const drawChart2 = (g, iW, iH) => {
     .join('text')
     .attr('class', 'change-label')
     .attr('x', iW / 2)
-    .attr('y', y(maxTotal * 1.1))
+    .attr('y', y(maxTotal * 1.16))
     .attr('text-anchor', 'middle')
-    .attr('font-size', 32)
+    .attr('font-size', iW < 220 ? 22 : 32)
     .attr('font-weight', 700)
     .attr('fill', '#ed1847')
     .style('opacity', 1)
@@ -395,8 +395,8 @@ const drawChart3 = (g, iW, iH) => {
     .call(
       d3
         .axisLeft(y)
-        .tickValues([0, 5, 10, 15, 20])
-        .tickFormat(d => d.toFixed(1))
+        .tickValues(iW < 220 ? [0, 10, 20] : [0, 5, 10, 15, 20])
+        .tickFormat(d => d)
         .tickSize(-iW)
     )
     .call(applyGridStyle);
@@ -450,9 +450,9 @@ const drawChart3 = (g, iW, iH) => {
     .join('text')
     .attr('class', 'change-label')
     .attr('x', iW / 2)
-    .attr('y', y(maxTotal * 1.1))
+    .attr('y', y(maxTotal * 1.16))
     .attr('text-anchor', 'middle')
-    .attr('font-size', 32)
+    .attr('font-size', iW < 220 ? 22 : 32)
     .attr('font-weight', 700)
     .attr('fill', '#ed1847')
     .style('opacity', 1)
@@ -595,66 +595,100 @@ const ChartFocusStrategic = () => {
 
   useEffect(() => {
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    // On mobile the chart is sticky at top (0–50svh); fire when panel enters the bottom half
-    const rootMargin = isMobile ? '-50% 0px -10% 0px' : '-45% 0px -45% 0px';
-    const observers = panelRefs.current.map((el, i) => {
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveStep(i);
-        },
-        { rootMargin, threshold: 0 }
-      );
-      obs.observe(el);
-      return obs;
-    });
+    // On mobile the sticky chart occupies 25–75% of the viewport; fire just below its centre.
+    // On desktop fire at the viewport midpoint.
+    // On mobile the text box is centred in a 125svh panel; 0.35 puts the centre
+    // just above the sticky chart top so text is visible before the chart updates.
+    const threshold = isMobile ? 0.35 : 0.5;
+    let raf = null;
+
+    const calcStep = () => {
+      const trigger = window.innerHeight * threshold;
+      let next = 0;
+      for (let i = 0; i < panelRefs.current.length; i++) {
+        const el = panelRefs.current[i];
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // Use panel centre so the step changes when the text box (vertically
+          // centred inside the panel) is near the trigger line, not the panel top.
+          if (rect.top + rect.height / 2 <= trigger) next = i;
+        }
+      }
+      setActiveStep(next);
+    };
+
+    const onScroll = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(calcStep);
+    };
+
+    // iOS address bar causes a height-only viewport resize + minor scroll adjustment.
+    // Re-calc once after it settles so we don't react mid-animation.
+    let suppressTimer;
+    let lastVpWidth = window.visualViewport?.width ?? window.innerWidth;
+    const handleVpResize = () => {
+      const w = window.visualViewport?.width ?? window.innerWidth;
+      if (Math.abs(w - lastVpWidth) < 5) {
+        clearTimeout(suppressTimer);
+        suppressTimer = setTimeout(calcStep, 300);
+      }
+      lastVpWidth = w;
+    };
+    window.visualViewport?.addEventListener('resize', handleVpResize);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    calcStep();
+
     return () => {
-      observers.forEach(o => {
-        o?.disconnect();
-      });
+      window.removeEventListener('scroll', onScroll);
+      window.visualViewport?.removeEventListener('resize', handleVpResize);
+      if (raf) cancelAnimationFrame(raf);
+      clearTimeout(suppressTimer);
     };
   }, []);
 
   return (
-    <div className="chart_focus_strategic">
-      <div className="strategic_left">
-        <div className="strategic_panel_inner">
-          {CHART_DESCRIPTIONS[activeStep] && <p className="strategic_description">{CHART_DESCRIPTIONS[activeStep]}</p>}
-          <Legend step={activeStep} />
-          <div className="strategic_chart_wrap" ref={chartWrapRef}>
-            {chartSize.width > 0 && chartSize.height > 0 && <D3Chart step={activeStep} width={chartSize.width} height={chartSize.height} />}
-          </div>
-        </div>
-      </div>
-
-      <div className="strategic_right">
-        {panels.map((panel, i) => (
-          <div
-            key={panel.step}
-            className="strategic_panel"
-            ref={el => {
-              panelRefs.current[i] = el;
-            }}
-          >
-            <div className="strategic_panel_inner">
-              <p className="strategic_step">
-                Step {i + 1} / {panels.length}
-              </p>
-              <h3 className="strategic_headline">{panel.headline}</h3>
-              {panel.body && <p className="strategic_body">{panel.body}</p>}
-              {panel.source && (
-                <p className="strategic_source">
-                  <em>Source:</em> {panel.source}
-                </p>
-              )}
-              {panel.note && (
-                <p className="strategic_note">
-                  <em>Note:</em> {panel.note}
-                </p>
-              )}
+    <div className="chart_focus_strategic_container">
+      <div className="chart_focus_strategic">
+        <div className="strategic_left">
+          <div className="strategic_panel_inner">
+            {CHART_DESCRIPTIONS[activeStep] && <p className="strategic_description">{CHART_DESCRIPTIONS[activeStep]}</p>}
+            <Legend step={activeStep} />
+            <div className="strategic_chart_wrap" ref={chartWrapRef}>
+              {chartSize.width > 0 && chartSize.height > 0 && <D3Chart step={activeStep} width={chartSize.width} height={chartSize.height} />}
             </div>
           </div>
-        ))}
+        </div>
+
+        <div className="strategic_right">
+          {panels.map((panel, i) => (
+            <div
+              key={panel.step}
+              className="strategic_panel"
+              ref={el => {
+                panelRefs.current[i] = el;
+              }}
+            >
+              <div className="strategic_panel_inner">
+                <p className="strategic_step">
+                  Step {i + 1} / {panels.length}
+                </p>
+                <h3 className="strategic_headline">{panel.headline}</h3>
+                {panel.body && <p className="strategic_body">{panel.body}</p>}
+                {panel.source && (
+                  <p className="strategic_source">
+                    <em>Source:</em> {panel.source}
+                  </p>
+                )}
+                {panel.note && (
+                  <p className="strategic_note">
+                    <em>Note:</em> {panel.note}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

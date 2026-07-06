@@ -49,7 +49,7 @@
         color: #fff;
         padding: 8px 20px 8px 40px;
         &:before {
-          background-image: url('https://storage.unctad.org/2025-wir_report/assets/img/icons/icon_download_white.png');
+          background-image: url('/assets/img/icon_download_white.png');
         }
         &:hover {
           background-color: var(--un-color-blue-darkest);
@@ -61,7 +61,7 @@
         color: #fff;
         padding: 8px 20px 8px 40px;
         &:before {
-          background-image: url('https://storage.unctad.org/2025-wir_report/assets/img/icons/icon_download_white.png');
+          background-image: url('/assets/img/icon_download_white.png');
         }
         &:hover {
           background-color: var(--secondary-color);
