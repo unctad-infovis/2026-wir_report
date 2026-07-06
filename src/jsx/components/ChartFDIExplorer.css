@@ -152,7 +152,7 @@
                       transform: scale(1.05);
                     }
                     &.selected {
-                      background-color: var(--un-color-blue);
+                      background-color: var(--un-color-green-dark);
                       cursor: default;
                       font-weight: var(--un-font-weight-bold);
                       &:hover {
@@ -286,17 +286,20 @@
           overflow: hidden;
           position: relative;
           .close_toggle {
-            background: transparent;
+            background-color: var(--main-color);
+            border-radius: 20px;
             border: 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
             cursor: pointer;
-            display: block;
+            display: inline-block;
             font-size: var(--un-font-size-xs);
-            margin-bottom: 10px;
-            padding: 8px 0 12px 0;
+            font-weight: var(--un-font-weight-bold);
+            margin: 8px 5px 10px 5px;
+            padding: 6px 16px;
             text-align: right;
-            width: 100%;
+            &:hover {
+              background-color: var(--secondary-color);
+            }
           }
           .left_container {
             background: #111;
@@ -320,17 +323,19 @@
             min-width: 0;
             width: 100%;
             .menu_toggle {
-              background: transparent;
-              border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+              background-color: var(--main-color);
+              border-radius: 20px;
               border: 0;
               color: #fff;
               cursor: pointer;
-              display: block;
+              display: inline-block;
               font-size: var(--un-font-size-xs);
-              margin: 0 0 8px 5px;
-              padding: 6px 0 10px 0;
-              text-align: left;
-              width: 100%;
+              font-weight: var(--un-font-weight-bold);
+              margin: 8px 0 10px 5px;
+              padding: 6px 16px;
+              &:hover {
+                background-color: var(--secondary-color);
+              }
             }
           }
         }
@@ -338,16 +343,6 @@
       &.standalone {
         .container_chart_fdi_explorer {
           .layout {
-            .right_container {
-              .menu_toggle {
-                border-bottom-color: rgba(0, 0, 0, 0.15);
-                color: #333;
-              }
-            }
-            .close_toggle {
-              border-bottom-color: rgba(0, 0, 0, 0.15);
-              color: #333;
-            }
             .left_container {
               background: #fff;
             }

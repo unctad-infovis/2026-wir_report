@@ -1,7 +1,6 @@
 #app-root-2026-wir_report .app {
   .chart_focus_strategic_container {
     background-attachment: fixed;
-    background-color: #fff;
     background-image: radial-gradient(95% 70% at 50% -5%, #e1eafa80 0%, #f0f4fc33 38%, #fff0 72%), radial-gradient(85% 65% at 50% 105%, #dce6fa66 0%, #fff0 65%), linear-gradient(#f4f6fb 0%, #fafbfd 50%, #fff 100%);
     position: relative;
     z-index: 1;
@@ -68,7 +67,7 @@
               align-items: center;
               color: #555;
               display: flex;
-              font-size: var(--un-font-size-xxs);
+              font-size: var(--un-font-size-xs);
               gap: 6px;
               .legend_swatch {
                 border-radius: 2px;
@@ -82,7 +81,7 @@
           .strategic_description {
             color: #000;
             flex-shrink: 0;
-            font-size: var(--un-font-size-xs);
+            font-size: var(--un-font-size-normal);
             font-weight: var(--un-font-weight-bold);
             line-height: var(--un-line-height-normal);
             margin: 0 0 15px 0;
@@ -132,7 +131,7 @@
             }
             .strategic_body {
               color: #fff;
-              font-size: var(--un-text-size-normal);
+              font-size: var(--un-font-size-normal);
               line-height: var(--un-line-height-large);
               margin: 0 0 16px 0;
               max-width: none;
@@ -175,8 +174,9 @@
           .strategic_panel {
             box-sizing: border-box;
             min-height: 175svh;
-            padding: 40px 0;
+            padding: 40px 20px;
             position: relative;
+            margin: auto auto;
             width: 100%;
             z-index: 2;
             &:first-child {

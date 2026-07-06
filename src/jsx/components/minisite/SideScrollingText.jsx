@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import basePath from './../../helpers/BasePath';
+import { resolveAsset } from './../../helpers/BasePath';
 import './SideScrollingText.css';
+
+// SLIDE_OFFSET: starting translateX (%) for each text panel before it scrolls in.
+// SLIDE_RANGE: total scroll-driven translation range (%) across the full section height.
+const SLIDE_OFFSET = 100;
+const SLIDE_RANGE = 450;
 
 const getOpacity = translateX => {
   if (translateX > 30) return 1 - (translateX * 1.1 - 30) / 100;
@@ -32,16 +37,16 @@ const SideScrollingText = ({ header, image_url, texts }) => {
   }, []);
 
   const isScrolling = scrollProgress > 0 && scrollProgress < 1;
-  const imgSrc = image_url?.startsWith('http') ? image_url : `${basePath()}${image_url}`;
+  const imgSrc = resolveAsset(image_url);
 
   return (
     <div className="container_side_scrolling_text" ref={containerRef} style={{ height: `${texts.length * 150}svh` }}>
       {isScrolling && <div className="header">{header}</div>}
-      {isScrolling && <div className="background" style={{ backgroundImage: `url(${imgSrc})` }} />}
+      <div className="background" style={{ backgroundImage: `url(${imgSrc})`, opacity: isScrolling ? undefined : 0 }} />
       {isScrolling &&
         texts.map((text, index) => {
-          const baseOffset = 100 * (index + 1) + 100;
-          const translateX = baseOffset - scrollProgress * 450;
+          const baseOffset = SLIDE_OFFSET * (index + 2);
+          const translateX = baseOffset - scrollProgress * SLIDE_RANGE;
           return (
             <div
               className="container_scrolling_text"

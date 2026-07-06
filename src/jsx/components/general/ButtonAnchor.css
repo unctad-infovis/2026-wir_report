@@ -37,7 +37,7 @@
         color: #000;
         padding: 8px 20px 8px 40px;
         &:before {
-          background-image: url('https://storage.unctad.org/2025-wir_report/assets/img/icons/icon_eye_black.png');
+          background-image: url('/assets/img/icon_eye_black.png');
         }
         &:hover {
           background-color: var(--un-color-yellow-dark);

@@ -74,7 +74,6 @@ const CHART_DESCRIPTIONS = [
 
 const CHART_MARGIN = { top: 20, right: 10, bottom: 35, left: 30 };
 const SECTOR_KEYS = sectors.map(s => s.key);
-const fmtSpace = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0');
 
 const getSectorColor = (key, highlight) => {
   if (!highlight) return '#009edb';
@@ -189,34 +188,6 @@ const drawChart1 = (g, iW, iH, highlight) => {
     });
   }
 
-  const cagrData = [];
-  const cagrSel = g.selectAll('.cagr-label').data(cagrData, d => d.key);
-  cagrSel
-    .enter()
-    .append('text')
-    .attr('class', 'cagr-label')
-    .style('opacity', 0)
-    .attr('dy', '0.35em')
-    .attr('font-size', 10)
-    .attr('font-weight', 700)
-    .merge(cagrSel)
-    .attr('x', iW + 6)
-    .attr('y', d => {
-      const row = data1[5];
-      let cum = 0;
-      for (const s of SECTOR_KEYS) {
-        if (s === d.key) break;
-        cum += row[s];
-      }
-      return y(cum + row[d.key] / 2);
-    })
-    .attr('fill', d => d.color)
-    .text(d => `${d.cagr}/yr`)
-    .transition()
-    .duration(300)
-    .style('opacity', 1);
-  cagrSel.exit().transition().duration(200).style('opacity', 0).remove();
-
   const annotData = highlight
     ? []
     : [
@@ -279,22 +250,12 @@ const drawChart1 = (g, iW, iH, highlight) => {
   barLabelSel.exit().transition().duration(200).style('opacity', 0).remove();
 };
 
-const drawChart2 = (g, iW, iH) => {
-  const periods = [
-    { period: '2015–2019', total: mfgInvestors.reduce((s, d) => s + d.p1, 0) },
-    { period: '2021–2025', total: mfgInvestors.reduce((s, d) => s + d.p2, 0) }
-  ];
+// Shared renderer for the two-bar comparison charts (charts 2 and 3).
+const drawTwoBarChart = (g, iW, iH, { periods, yTicks, mobileYTicks, formatValue, changeLabel }) => {
   const maxTotal = Math.max(...periods.map(p => p.total));
 
-  const x = d3
-    .scaleBand()
-    .domain(periods.map(p => p.period))
-    .range([0, iW])
-    .padding(0.35);
-  const y = d3
-    .scaleLinear()
-    .domain([0, maxTotal * 1.2])
-    .range([iH, 0]);
+  const x = d3.scaleBand().domain(periods.map(p => p.period)).range([0, iW]).padding(0.35);
+  const y = d3.scaleLinear().domain([0, maxTotal * 1.2]).range([iH, 0]);
 
   g.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis axis').attr('transform', `translate(0,${iH})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8)).call(applyXStyle);
 
@@ -302,162 +263,47 @@ const drawChart2 = (g, iW, iH) => {
     .data([null])
     .join('g')
     .attr('class', 'y-axis axis')
-    .call(
-      d3
-        .axisLeft(y)
-        .tickValues([0, 200, 400, 600, 800, 1000])
-        .tickFormat(d => (d === 1000 ? '1 000' : `${d}`))
-        .tickSize(-iW)
-    )
+    .call(d3.axisLeft(y).tickValues(mobileYTicks && iW < 220 ? mobileYTicks : yTicks).tickFormat(d => d).tickSize(-iW))
     .call(applyGridStyle);
 
   // Connecting trapezoid between the two bars
   const x1right = x(periods[0].period) + x.bandwidth();
   const x2left = x(periods[1].period);
-  const connPoints = [
-    [x1right, y(periods[0].total)],
-    [x2left, y(periods[1].total)],
-    [x2left, iH],
-    [x1right, iH]
-  ]
-    .map(p => p.join(','))
-    .join(' ');
+  const connPoints = [[x1right, y(periods[0].total)], [x2left, y(periods[1].total)], [x2left, iH], [x1right, iH]].map(p => p.join(',')).join(' ');
   g.selectAll('.bar-connector').data([null]).join('polygon').attr('class', 'bar-connector').attr('fill', '#f7dfdf').attr('points', connPoints);
 
   const bars = g.selectAll('.bar-simple').data(periods, d => d.period);
-  bars
-    .enter()
-    .append('rect')
-    .attr('class', 'bar-simple')
-    .attr('fill', '#009edb')
-    .attr('x', d => x(d.period))
-    .attr('width', x.bandwidth())
-    .attr('y', d => y(d.total))
-    .attr('height', d => Math.max(0, y(0) - y(d.total)));
-  bars
-    .transition()
-    .duration(300)
-    .attr('x', d => x(d.period))
-    .attr('width', x.bandwidth())
-    .attr('y', d => y(d.total))
-    .attr('height', d => Math.max(0, y(0) - y(d.total)));
+  bars.enter().append('rect').attr('class', 'bar-simple').attr('fill', '#009edb').attr('x', d => x(d.period)).attr('width', x.bandwidth()).attr('y', d => y(d.total)).attr('height', d => Math.max(0, y(0) - y(d.total)));
+  bars.transition().duration(300).attr('x', d => x(d.period)).attr('width', x.bandwidth()).attr('y', d => y(d.total)).attr('height', d => Math.max(0, y(0) - y(d.total)));
   bars.exit().remove();
 
-  g.selectAll('.bar-value')
-    .data(periods, d => d.period)
-    .join('text')
-    .attr('class', 'bar-value')
-    .attr('text-anchor', 'middle')
-    .attr('font-size', 14)
-    .attr('font-weight', 700)
-    .attr('fill', '#333')
-    .attr('x', d => x(d.period) + x.bandwidth() / 2)
-    .attr('y', d => y(d.total) - 8)
-    .text(d => String(d.total));
+  g.selectAll('.bar-value').data(periods, d => d.period).join('text').attr('class', 'bar-value').attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700).attr('fill', '#333').attr('x', d => x(d.period) + x.bandwidth() / 2).attr('y', d => y(d.total) - 8).text(d => formatValue(d.total));
 
-  g.selectAll('.change-label')
-    .data(['-17%'])
-    .join('text')
-    .attr('class', 'change-label')
-    .attr('x', iW / 2)
-    .attr('y', y(maxTotal * 1.16))
-    .attr('text-anchor', 'middle')
-    .attr('font-size', iW < 220 ? 22 : 32)
-    .attr('font-weight', 700)
-    .attr('fill', '#ed1847')
-    .style('opacity', 1)
-    .text(d => d);
+  g.selectAll('.change-label').data([changeLabel]).join('text').attr('class', 'change-label').attr('x', iW / 2).attr('y', y(maxTotal * 1.16)).attr('text-anchor', 'middle').attr('font-size', iW < 220 ? 22 : 32).attr('font-weight', 700).attr('fill', '#ed1847').style('opacity', 1).text(d => d);
 };
 
-const drawChart3 = (g, iW, iH) => {
-  const periods = [
-    { period: '2015–2019', total: 18.7 },
-    { period: '2021–2025', total: 5.6 }
-  ];
-  const maxTotal = Math.max(...periods.map(p => p.total));
+const drawChart2 = (g, iW, iH) =>
+  drawTwoBarChart(g, iW, iH, {
+    periods: [
+      { period: '2015–2019', total: mfgInvestors.reduce((s, d) => s + d.p1, 0) },
+      { period: '2021–2025', total: mfgInvestors.reduce((s, d) => s + d.p2, 0) }
+    ],
+    yTicks: [0, 200, 400, 600, 800, 1000],
+    formatValue: v => String(v),
+    changeLabel: '-17%'
+  });
 
-  const x = d3
-    .scaleBand()
-    .domain(periods.map(p => p.period))
-    .range([0, iW])
-    .padding(0.35);
-  const y = d3
-    .scaleLinear()
-    .domain([0, maxTotal * 1.2])
-    .range([iH, 0]);
-
-  g.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis axis').attr('transform', `translate(0,${iH})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8)).call(applyXStyle);
-
-  g.selectAll('.y-axis')
-    .data([null])
-    .join('g')
-    .attr('class', 'y-axis axis')
-    .call(
-      d3
-        .axisLeft(y)
-        .tickValues(iW < 220 ? [0, 10, 20] : [0, 5, 10, 15, 20])
-        .tickFormat(d => d)
-        .tickSize(-iW)
-    )
-    .call(applyGridStyle);
-
-  // Connecting trapezoid
-  const x1right = x(periods[0].period) + x.bandwidth();
-  const x2left = x(periods[1].period);
-  const connPoints = [
-    [x1right, y(periods[0].total)],
-    [x2left, y(periods[1].total)],
-    [x2left, iH],
-    [x1right, iH]
-  ]
-    .map(p => p.join(','))
-    .join(' ');
-  g.selectAll('.bar-connector').data([null]).join('polygon').attr('class', 'bar-connector').attr('fill', '#f7dfdf').attr('points', connPoints);
-
-  const bars = g.selectAll('.bar-simple').data(periods, d => d.period);
-  bars
-    .enter()
-    .append('rect')
-    .attr('class', 'bar-simple')
-    .attr('fill', '#009edb')
-    .attr('x', d => x(d.period))
-    .attr('width', x.bandwidth())
-    .attr('y', d => y(d.total))
-    .attr('height', d => Math.max(0, y(0) - y(d.total)));
-  bars
-    .transition()
-    .duration(300)
-    .attr('x', d => x(d.period))
-    .attr('width', x.bandwidth())
-    .attr('y', d => y(d.total))
-    .attr('height', d => Math.max(0, y(0) - y(d.total)));
-  bars.exit().remove();
-
-  g.selectAll('.bar-value')
-    .data(periods, d => d.period)
-    .join('text')
-    .attr('class', 'bar-value')
-    .attr('text-anchor', 'middle')
-    .attr('font-size', 14)
-    .attr('font-weight', 700)
-    .attr('fill', '#333')
-    .attr('x', d => x(d.period) + x.bandwidth() / 2)
-    .attr('y', d => y(d.total) - 8)
-    .text(d => d.total.toFixed(1));
-
-  g.selectAll('.change-label')
-    .data(['-70%'])
-    .join('text')
-    .attr('class', 'change-label')
-    .attr('x', iW / 2)
-    .attr('y', y(maxTotal * 1.16))
-    .attr('text-anchor', 'middle')
-    .attr('font-size', iW < 220 ? 22 : 32)
-    .attr('font-weight', 700)
-    .attr('fill', '#ed1847')
-    .style('opacity', 1)
-    .text(d => d);
-};
+const drawChart3 = (g, iW, iH) =>
+  drawTwoBarChart(g, iW, iH, {
+    periods: [
+      { period: '2015–2019', total: 18.7 },
+      { period: '2021–2025', total: 5.6 }
+    ],
+    yTicks: [0, 5, 10, 15, 20],
+    mobileYTicks: [0, 10, 20],
+    formatValue: v => v.toFixed(1),
+    changeLabel: '-70%'
+  });
 
 // --- D3 Chart component ---
 
@@ -492,8 +338,7 @@ const D3Chart = ({ step, width, height }) => {
     const comingFrom = prevStepRef.current;
     prevStepRef.current = step;
 
-    const getType = s => (s <= 1 ? 1 : s === 2 ? 2 : 3);
-    const newType = getType(step);
+    const newType = step <= 1 ? 1 : step === 2 ? 2 : 3;
 
     // Update chart1 highlight when entering or leaving step 2
     if (newType === 1) {
@@ -533,16 +378,6 @@ const STEP2_LEGEND = [
 ];
 
 const Legend = ({ step }) => {
-  if (step <= 0) {
-    return (
-      <div className="strategic_legend">
-        <div className="legend_item">
-          <span className="legend_swatch" style={{ background: '#009edb' }} />
-          <span>Total</span>
-        </div>
-      </div>
-    );
-  }
   if (step === 1) {
     return (
       <div className="strategic_legend strategic_legend--column">
@@ -555,21 +390,11 @@ const Legend = ({ step }) => {
       </div>
     );
   }
-  if (step === 2) {
-    return (
-      <div className="strategic_legend">
-        <div className="legend_item">
-          <span className="legend_swatch" style={{ background: '#009edb' }} />
-          <span>Total</span>
-        </div>
-      </div>
-    );
-  }
   return (
     <div className="strategic_legend">
       <div className="legend_item">
         <span className="legend_swatch" style={{ background: '#009edb' }} />
-        <span>Low-income economies</span>
+        <span>{step >= 3 ? 'Low-income economies' : 'Total'}</span>
       </div>
     </div>
   );
@@ -594,16 +419,12 @@ const ChartFocusStrategic = () => {
   }, []);
 
   useEffect(() => {
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    // On mobile the sticky chart occupies 25–75% of the viewport; fire just below its centre.
-    // On desktop fire at the viewport midpoint.
-    // On mobile the text box is centred in a 125svh panel; 0.35 puts the centre
-    // just above the sticky chart top so text is visible before the chart updates.
-    const threshold = isMobile ? 0.35 : 0.5;
     let raf = null;
 
     const calcStep = () => {
-      const trigger = window.innerHeight * threshold;
+      // Re-check on every call so orientation changes and viewport resizes are handled.
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const trigger = window.innerHeight * (isMobile ? 0.35 : 0.5);
       let next = 0;
       for (let i = 0; i < panelRefs.current.length; i++) {
         const el = panelRefs.current[i];
@@ -652,7 +473,7 @@ const ChartFocusStrategic = () => {
       <div className="chart_focus_strategic">
         <div className="strategic_left">
           <div className="strategic_panel_inner">
-            {CHART_DESCRIPTIONS[activeStep] && <p className="strategic_description">{CHART_DESCRIPTIONS[activeStep]}</p>}
+            <p className="strategic_description">{CHART_DESCRIPTIONS[activeStep]}</p>
             <Legend step={activeStep} />
             <div className="strategic_chart_wrap" ref={chartWrapRef}>
               {chartSize.width > 0 && chartSize.height > 0 && <D3Chart step={activeStep} width={chartSize.width} height={chartSize.height} />}

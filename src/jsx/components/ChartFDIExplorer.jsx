@@ -417,7 +417,7 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
       <div className="container_chart_fdi_explorer" style={{ opacity: isInteractive ? 1 : 0.1, pointerEvents: isInteractive ? 'all' : 'none', transition: 'opacity 0.9s ease' }}>
         <div className="layout">
           <div className={`left_container${menuOpen ? ' menu-open' : ''}`}>
-            <button className="close_toggle" onClick={() => setMenuOpen(false)} type="button">&#10005; Close</button>
+            <button className="close_toggle" onClick={() => setMenuOpen(false)} type="button">Close</button>
             <div className="name_container">
               <h4>Foreign Direct Investments (FDI)</h4>
             </div>
@@ -450,7 +450,7 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
           </div>
           <div className="right_container">
             <button aria-expanded={menuOpen} className="menu_toggle" onClick={() => setMenuOpen(o => !o)} type="button">
-              &#9776; Select economy / region
+              Select economy / region
             </button>
             <div className="title_container">
               <h4>By region and economy, thousands of dollars, 1990–2025</h4>

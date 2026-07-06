@@ -22,7 +22,7 @@
         }
       }
       &:before {
-        background-image: url('https://storage.unctad.org/2025-wir_report/assets/img/icons/icon_quote_big.png');
+        background-image: url('/assets/img/icon_quote_big.png');
         background-repeat: no-repeat;
         background-size: 100%;
         content: '';
