@@ -87,11 +87,11 @@
     .two_column {
       align-items: center;
       display: flex;
-      gap: 0;
+      gap: 10px;
       justify-content: center;
       margin: auto auto;
       max-width: 1000px;
-      @media all and (max-width: 700px) {
+      @media all and (max-width: 768px) {
         flex-direction: column;
       }
       figure {

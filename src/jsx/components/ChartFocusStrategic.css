@@ -1,6 +1,7 @@
 #app-root-2026-wir_report .app {
   .chart_focus_strategic_container {
     background-attachment: fixed;
+    background-color: #fff;
     background-image: radial-gradient(95% 70% at 50% -5%, #e1eafa80 0%, #f0f4fc33 38%, #fff0 72%), radial-gradient(85% 65% at 50% 105%, #dce6fa66 0%, #fff0 65%), linear-gradient(#f4f6fb 0%, #fafbfd 50%, #fff 100%);
     position: relative;
     z-index: 1;
