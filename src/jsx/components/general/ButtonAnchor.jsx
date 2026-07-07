@@ -29,10 +29,8 @@ function ButtonAnchor({ className, text, url }) {
   }, [url]);
 
   const handleClick = (event, selector) => {
-    window.appRef.current.querySelector(selector)?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
+    const el = window.appRef.current.querySelector(selector) ?? document.querySelector(selector);
+    el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     event.preventDefault();
   };
 

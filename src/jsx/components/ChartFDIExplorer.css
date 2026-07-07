@@ -229,6 +229,14 @@
                     stroke: var(--un-color-grey);
                   }
                 }
+                .highcharts-caption {
+                  a {
+                    text-decoration: underline;
+                  }
+                  a:hover {
+                    text-decoration: none;
+                  }
+                }
               }
               .legend_container {
                 margin-bottom: 10px;
@@ -247,20 +255,6 @@
                     width: 18px;
                   }
                 }
-              }
-            }
-            .source_container {
-              color: var(--un-color-grey-text);
-              font-size: var(--un-font-size-xxs);
-              font-weight: var(--un-font-weight-normal);
-              line-height: var(--un-line-height-normal);
-              margin-bottom: 5px;
-              a {
-                color: var(--un-color-blue-text);
-                text-decoration: underline;
-              }
-              a:hover {
-                text-decoration: none;
               }
             }
           }

@@ -166,7 +166,7 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
         align: 'left',
         margin: 15,
         style: { color: captionColor, fontSize: '14px' },
-        text: '<em>Source:</em> UN Trade and Development (UNCTAD), World investment report 2026<br /><em>Note:</em> The data includes financial transactions through European economies with high levels of conduit flows.',
+        text: `<em>Source:</em> UN Trade and Development (UNCTAD), World investment report 2026<br /><em>Note:</em> The data includes financial transactions through European economies with high levels of conduit flows.${standalone ? '' : ' <br />Learn more from <a href="https://unctad.org/topic/investment/foreign-direct-investment-explorer" target="_blank" style="color:inherit">the FDI explorer page</a>.'}`,
         verticalAlign: 'bottom',
         x: 0
       },
@@ -417,7 +417,9 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
       <div className="container_chart_fdi_explorer" style={{ opacity: isInteractive ? 1 : 0.1, pointerEvents: isInteractive ? 'all' : 'none', transition: 'opacity 0.9s ease' }}>
         <div className="layout">
           <div className={`left_container${menuOpen ? ' menu-open' : ''}`}>
-            <button className="close_toggle" onClick={() => setMenuOpen(false)} type="button">Close</button>
+            <button className="close_toggle" onClick={() => setMenuOpen(false)} type="button">
+              Close
+            </button>
             <div className="name_container">
               <h4>Foreign Direct Investments (FDI)</h4>
             </div>
