@@ -6,17 +6,17 @@
 
 The World Investment Report 2026 is an annual UNCTAD flagship publication tracking global foreign direct investment (FDI) trends and policy developments. This project is the interactive web publication page for the 2026 edition, presenting the report's key findings through a scrollytelling minisite with narrative text, data visualisations, and chapter navigation.
 
-The page features an FDI Explorer — an interactive chart allowing users to explore inflow and outflow data by region and economy from 1990 to 2025 — alongside a strategic investment focus section with scroll-driven animated charts. Content is authored in MDX and rendered as a standalone React application embeddable within UNCTAD's Drupal platform.
+The page features an FDI Explorer – an interactive chart allowing users to explore inflow and outflow data by region and economy from 1990 to 2025 – alongside a strategic investment focus section with scroll-driven animated charts. Content is authored in MDX and rendered as a standalone React application embeddable within UNCTAD's Drupal platform.
 
 ## Embedding
 
 ### Full publication page
 
 ```html
-<script type="module" crossorigin="" src="https://storage.unctad.org/2026-wir_report/js/2026-wir_report.min.js"></script>
-<link rel="modulepreload" crossorigin="" href="https://storage.unctad.org/2026-wir_report/js/2026-wir_report.styles.js">
-<link rel="stylesheet" crossorigin="" href="https://storage.unctad.org/2026-wir_report/css/2026-wir_report_fdi_explorer.min.css">
-<link rel="stylesheet" crossorigin="" href="https://storage.unctad.org/2026-wir_report/css/2026-wir_report.min.css">
+<script type="module" crossorigin="" src="https://storage.unctad.org/2026-wir_report/js/2026-wir_report.min.js?v=1"></script>
+<link rel="modulepreload" crossorigin="" href="https://storage.unctad.org/2026-wir_report/js/2026-wir_report.styles.js?v=1">
+<link rel="stylesheet" crossorigin="" href="https://storage.unctad.org/2026-wir_report/css/2026-wir_report_fdi_explorer.min.css?v=1">
+<link rel="stylesheet" crossorigin="" href="https://storage.unctad.org/2026-wir_report/css/2026-wir_report.min.css?v=1">
 <div class="app-root-2026-wir_report" id="app-root-2026-wir_report">
   Loading...
 </div>
@@ -26,8 +26,8 @@ The page features an FDI Explorer — an interactive chart allowing users to exp
 
 ```html
 <div class="my-5">
-  <script type="module" crossorigin="" src="https://storage.unctad.org/2026-wir_report/js/2026-wir_report.fdi-explorer.min.js"></script>
-  <link rel="stylesheet" crossorigin="" href="https://storage.unctad.org/2026-wir_report/css/2026-wir_report_fdi_explorer.min.css">
+  <script type="module" crossorigin="" src="https://storage.unctad.org/2026-wir_report/js/2026-wir_report.fdi-explorer.min.js?v=1"></script>
+  <link rel="stylesheet" crossorigin="" href="https://storage.unctad.org/2026-wir_report/css/2026-wir_report_fdi_explorer.min.css?v=1">
   <div class="app-root-2026-wir_report" id="app-root-2026-wir_report">
     Loading...
   </div>
@@ -64,7 +64,7 @@ All source code goes to folder `src`.
 
 #### Structure
 
-The file is a JSON object with two top-level keys — `fdi_inflows` and `fdi_outflows` — each containing an array of region/economy entries in a specific order.
+The file is a JSON object with two top-level keys – `fdi_inflows` and `fdi_outflows` – each containing an array of region/economy entries in a specific order.
 
 ```json
 {
@@ -84,7 +84,7 @@ Each entry in the array has the following fields:
 
 #### Hierarchy
 
-The entries are **ordered** and the hierarchy is **implicit** — a child entry always follows its parent and has a higher `level` value. There are no explicit parent references. The application reconstructs the tree by tracking the current level as it iterates through the array.
+The entries are **ordered** and the hierarchy is **implicit** – a child entry always follows its parent and has a higher `level` value. There are no explicit parent references. The application reconstructs the tree by tracking the current level as it iterates through the array.
 
 ```
 level 1 → World
@@ -114,23 +114,23 @@ The following packages are used in this project by default.
 
 ### Build & Dev Server
 
-* **vite** — development server with hot module replacement and production bundler, replaces webpack
-* **@vitejs/plugin-react** — adds React and JSX support to Vite
+* **vite** – development server with hot module replacement and production bundler, replaces webpack
+* **@vitejs/plugin-react** – adds React and JSX support to Vite
 
 ### React
 
-* **react** — UI component library
-* **react-dom** — renders React components to the DOM
+* **react** – UI component library
+* **react-dom** – renders React components to the DOM
 
 ### Formatter & Linter
 
-* **@biomejs/biome** — formats and lints JS, JSX and CSS files on save, replaces ESLint + Prettier
+* **@biomejs/biome** – formats and lints JS, JSX and CSS files on save, replaces ESLint + Prettier
 
 ### Minification
 
-* **terser** — minifies the production JavaScript bundle, removes console.logs in production builds
+* **terser** – minifies the production JavaScript bundle, removes console.logs in production builds
 
 ### MDX
 
-* **@mdx-js/rollup** — Vite/Rollup plugin that compiles MDX files into React components
-* **@mdx-js/react** — provides React context for MDX components
+* **@mdx-js/rollup** – Vite/Rollup plugin that compiles MDX files into React components
+* **@mdx-js/react** – provides React context for MDX components
