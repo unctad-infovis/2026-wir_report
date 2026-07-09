@@ -32,10 +32,6 @@ const getColors = () => {
     v('--un-color-yellow-dark'),
     v('--un-color-purple-dark'),
     v('--un-color-green-dark'),
-    v('--un-color-blue-lightest'),
-    v('--un-color-yellow-lightest'),
-    v('--un-color-purple-lightest'),
-    v('--un-color-green-lightest'),
     v('--un-color-blue-darkest'),
     v('--un-color-yellow-darkest'),
     v('--un-color-purple-darkest'),
@@ -455,7 +451,7 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
               Select economy / region
             </button>
             <div className="title_container">
-              <h4>By region and economy, thousands of dollars, 1990–2025</h4>
+              <h4>By region and economy, millions of dollars, 1990–2025</h4>
               <div className="options_container">
                 <span className="button_container">
                   <button aria-label="Select FDI inflows dataset" className={`data_type${dataType === 'fdi_inflows' ? ' selected' : ''}`} onClick={() => changeDataType('fdi_inflows')} title="Select FDI inflows dataset" type="button">
