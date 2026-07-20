@@ -20,6 +20,7 @@ The page features an FDI Explorer – an interactive chart allowing users to exp
 <div class="app-root-2026-wir_report" id="app-root-2026-wir_report">
   Loading...
 </div>
+<noscript>Your browser does not support Javascript!</noscript>
 ```
 
 ### Standalone FDI Explorer
@@ -37,6 +38,11 @@ The page features an FDI Explorer – an interactive chart allowing users to exp
 
 Update the `?v=` query parameter to match the current build version to bust the cache.
 
+## Used in
+
+* [World Investment Report 2026](https://unctad.org/publication/world-investment-report-2026)
+* [Foreign Direct Investment Explorer](https://unctad.org/topic/investment/foreign-direct-investment-explorer)
+
 ## Rights of usage
 
 Contact Teemo Tebest.
@@ -45,7 +51,7 @@ Contact Teemo Tebest.
 
 This is a Vite + React project.
 
-* `npm run install`
+* `npm install`
 * `npm run start`
 
 Project should start at: http://localhost:8080
@@ -108,29 +114,29 @@ The following packages are used in this project by default.
 
 ### Project specific
 
-* **highcharts** - used to create the FDI Explorer 
-* **react-is-visible** - used to check if an element is in the viewport
-* **uuid4** - used to create unique IDs
+* **highcharts** — used to create the FDI Explorer
+* **react-is-visible** — used to check if an element is in the viewport
+* **uuid4** — used to create unique IDs
 
 ### Build & Dev Server
 
-* **vite** – development server with hot module replacement and production bundler, replaces webpack
-* **@vitejs/plugin-react** – adds React and JSX support to Vite
+* **vite** — development server with hot module replacement and production bundler, replaces webpack
+* **@vitejs/plugin-react** — adds React and JSX support to Vite
 
 ### React
 
-* **react** – UI component library
-* **react-dom** – renders React components to the DOM
+* **react** — UI component library
+* **react-dom** — renders React components to the DOM
 
 ### Formatter & Linter
 
-* **@biomejs/biome** – formats and lints JS, JSX and CSS files on save, replaces ESLint + Prettier
+* **@biomejs/biome** — formats and lints JS, JSX and CSS files on save, replaces ESLint + Prettier
 
 ### Minification
 
-* **terser** – minifies the production JavaScript bundle, removes console.logs in production builds
+* **terser** — minifies the production JavaScript bundle, removes console.logs in production builds
 
 ### MDX
 
-* **@mdx-js/rollup** – Vite/Rollup plugin that compiles MDX files into React components
-* **@mdx-js/react** – provides React context for MDX components
+* **@mdx-js/rollup** — Vite/Rollup plugin that compiles MDX files into React components
+* **@mdx-js/react** — provides React context for MDX components
