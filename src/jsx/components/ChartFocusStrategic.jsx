@@ -254,8 +254,15 @@ const drawChart1 = (g, iW, iH, highlight) => {
 const drawTwoBarChart = (g, iW, iH, { periods, yTicks, mobileYTicks, formatValue, changeLabel }) => {
   const maxTotal = Math.max(...periods.map(p => p.total));
 
-  const x = d3.scaleBand().domain(periods.map(p => p.period)).range([0, iW]).padding(0.35);
-  const y = d3.scaleLinear().domain([0, maxTotal * 1.2]).range([iH, 0]);
+  const x = d3
+    .scaleBand()
+    .domain(periods.map(p => p.period))
+    .range([0, iW])
+    .padding(0.35);
+  const y = d3
+    .scaleLinear()
+    .domain([0, maxTotal * 1.2])
+    .range([iH, 0]);
 
   g.selectAll('.x-axis').data([null]).join('g').attr('class', 'x-axis axis').attr('transform', `translate(0,${iH})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8)).call(applyXStyle);
 
@@ -263,23 +270,71 @@ const drawTwoBarChart = (g, iW, iH, { periods, yTicks, mobileYTicks, formatValue
     .data([null])
     .join('g')
     .attr('class', 'y-axis axis')
-    .call(d3.axisLeft(y).tickValues(mobileYTicks && iW < 220 ? mobileYTicks : yTicks).tickFormat(d => d).tickSize(-iW))
+    .call(
+      d3
+        .axisLeft(y)
+        .tickValues(mobileYTicks && iW < 220 ? mobileYTicks : yTicks)
+        .tickFormat(d => d)
+        .tickSize(-iW)
+    )
     .call(applyGridStyle);
 
   // Connecting trapezoid between the two bars
   const x1right = x(periods[0].period) + x.bandwidth();
   const x2left = x(periods[1].period);
-  const connPoints = [[x1right, y(periods[0].total)], [x2left, y(periods[1].total)], [x2left, iH], [x1right, iH]].map(p => p.join(',')).join(' ');
+  const connPoints = [
+    [x1right, y(periods[0].total)],
+    [x2left, y(periods[1].total)],
+    [x2left, iH],
+    [x1right, iH]
+  ]
+    .map(p => p.join(','))
+    .join(' ');
   g.selectAll('.bar-connector').data([null]).join('polygon').attr('class', 'bar-connector').attr('fill', '#f7dfdf').attr('points', connPoints);
 
   const bars = g.selectAll('.bar-simple').data(periods, d => d.period);
-  bars.enter().append('rect').attr('class', 'bar-simple').attr('fill', '#009edb').attr('x', d => x(d.period)).attr('width', x.bandwidth()).attr('y', d => y(d.total)).attr('height', d => Math.max(0, y(0) - y(d.total)));
-  bars.transition().duration(300).attr('x', d => x(d.period)).attr('width', x.bandwidth()).attr('y', d => y(d.total)).attr('height', d => Math.max(0, y(0) - y(d.total)));
+  bars
+    .enter()
+    .append('rect')
+    .attr('class', 'bar-simple')
+    .attr('fill', '#009edb')
+    .attr('x', d => x(d.period))
+    .attr('width', x.bandwidth())
+    .attr('y', d => y(d.total))
+    .attr('height', d => Math.max(0, y(0) - y(d.total)));
+  bars
+    .transition()
+    .duration(300)
+    .attr('x', d => x(d.period))
+    .attr('width', x.bandwidth())
+    .attr('y', d => y(d.total))
+    .attr('height', d => Math.max(0, y(0) - y(d.total)));
   bars.exit().remove();
 
-  g.selectAll('.bar-value').data(periods, d => d.period).join('text').attr('class', 'bar-value').attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700).attr('fill', '#333').attr('x', d => x(d.period) + x.bandwidth() / 2).attr('y', d => y(d.total) - 8).text(d => formatValue(d.total));
+  g.selectAll('.bar-value')
+    .data(periods, d => d.period)
+    .join('text')
+    .attr('class', 'bar-value')
+    .attr('text-anchor', 'middle')
+    .attr('font-size', 14)
+    .attr('font-weight', 700)
+    .attr('fill', '#333')
+    .attr('x', d => x(d.period) + x.bandwidth() / 2)
+    .attr('y', d => y(d.total) - 8)
+    .text(d => formatValue(d.total));
 
-  g.selectAll('.change-label').data([changeLabel]).join('text').attr('class', 'change-label').attr('x', iW / 2).attr('y', y(maxTotal * 1.16)).attr('text-anchor', 'middle').attr('font-size', iW < 220 ? 22 : 32).attr('font-weight', 700).attr('fill', '#ed1847').style('opacity', 1).text(d => d);
+  g.selectAll('.change-label')
+    .data([changeLabel])
+    .join('text')
+    .attr('class', 'change-label')
+    .attr('x', iW / 2)
+    .attr('y', y(maxTotal * 1.16))
+    .attr('text-anchor', 'middle')
+    .attr('font-size', iW < 220 ? 22 : 32)
+    .attr('font-weight', 700)
+    .attr('fill', '#ed1847')
+    .style('opacity', 1)
+    .text(d => d);
 };
 
 const drawChart2 = (g, iW, iH) =>

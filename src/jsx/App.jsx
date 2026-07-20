@@ -1,3 +1,10 @@
+import BackToTop from '@unctad-infovis/general-tools/components/BackToTop.jsx';
+import ChartDataWrapper from '@unctad-infovis/general-tools/components/ChartDataWrapper.jsx';
+import Image from '@unctad-infovis/general-tools/components/Image.jsx';
+import ProgressBar from '@unctad-infovis/general-tools/components/ProgressBar.jsx';
+import Quote from '@unctad-infovis/general-tools/components/Quote.jsx';
+import SideScrollingText from '@unctad-infovis/minisite-tools/components/SideScrollingText.jsx';
+
 import { useEffect, useRef } from 'react';
 
 import Article from '../Article.mdx';
@@ -6,20 +13,13 @@ import Article from '../Article.mdx';
 import ChartFDIExplorer from './components/ChartFDIExplorer.jsx';
 import ChartFocusStrategic from './components/ChartFocusStrategic.jsx';
 
-// General
-import BackToTop from './components/general/BackToTop.jsx';
-import ChartDataWrapper from './components/general/ChartDataWrapper.jsx';
-import Image from './components/general/Image.jsx';
-import ProgressBar from './components/general/ProgressBar.jsx';
-import Quote from './components/general/Quote.jsx';
-
 // Minisite
 import Footer from './components/minisite/Footer.jsx';
 import Header from './components/minisite/Header.jsx';
 import HeaderChapter from './components/minisite/HeaderChapter.jsx';
-import SideScrollingText from './components/minisite/SideScrollingText.jsx';
 
-import './../styles/styles.css';
+import '@unctad-infovis/general-tools/styles/styles.css';
+import './App.css';
 import './components/minisite/minisite.css';
 
 const components = {

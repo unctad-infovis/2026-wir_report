@@ -1,0 +1,37 @@
+#app-root-2026-wir_report .app {
+  ul {
+    box-sizing: border-box;
+    font-size: var(--un-font-size-normal);
+    font-weight: var(--un-font-weight-normal);
+    line-height: var(--un-line-height-normal);
+    margin: auto auto 20px auto;
+    max-width: 700px;
+  }
+  h3,
+  h4,
+  p,
+  ul {
+    padding: 0;
+  }
+  p,
+  ul {
+    a {
+      color: #000;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  .height_100vh {
+    min-height: 100svh;
+  }
+  .two_column {
+    gap: 10px;
+    margin: auto auto;
+    max-width: 1000px;
+    @media all and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+}

@@ -17,7 +17,7 @@ export default defineConfig(({ command }) => ({
         'fdi-explorer': './fdi-explorer.html'
       },
       output: {
-        entryFileNames: chunk => chunk.name === 'index' ? `js/${name}.min.js` : `js/${name}.${chunk.name}.min.js`,
+        entryFileNames: chunk => (chunk.name === 'index' ? `js/${name}.min.js` : `js/${name}.${chunk.name}.min.js`),
         chunkFileNames: `js/${name}.[name].js`,
         assetFileNames: assetInfo => {
           if (assetInfo.name?.endsWith('.css')) {

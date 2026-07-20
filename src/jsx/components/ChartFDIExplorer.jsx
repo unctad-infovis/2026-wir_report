@@ -1,14 +1,13 @@
+import formatNr from '@unctad-infovis/general-tools/helpers/FormatNr.js';
+import roundNr from '@unctad-infovis/general-tools/helpers/RoundNr.js';
 import Highcharts from 'highcharts';
 import 'highcharts/modules/accessibility';
 import 'highcharts/modules/exporting';
 import 'highcharts/modules/export-data';
+import loadFile from '@unctad-infovis/general-tools/helpers/LoadFile.js';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import formatNr from './../helpers/FormatNr.js';
-import loadFile from './../helpers/LoadFile.js';
-import roundNr from './../helpers/RoundNr.js';
-
-import './../../styles/colors.css';
+import '@unctad-infovis/general-tools/styles/colors.css';
 import './ChartFDIExplorer.css';
 
 // --- Constants ---
@@ -136,14 +135,15 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
 
   // --- Load data ---
   useEffect(() => {
-    loadFile(dataFile).then(json => {
-      if (json) {
-        json = JSON.parse(json);
-        const cleaned = cleanData(json);
-        setData(cleaned);
-        setActiveData(cleaned[dataType]);
-      }
-    });
+    loadFile(dataFile)
+      .then(r => r?.json())
+      .then(json_data => {
+        if (json_data) {
+          const cleaned = cleanData(json_data);
+          setData(cleaned);
+          setActiveData(cleaned[dataType]);
+        }
+      });
   }, [cleanData, dataType]);
 
   // --- Chart creation ---
@@ -162,7 +162,7 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
         align: 'left',
         margin: 15,
         style: { color: captionColor, fontSize: '14px' },
-        text: `<em>Source:</em> UN Trade and Development (UNCTAD), World investment report 2026<br /><em>Note:</em> The data includes financial transactions through European economies with high levels of conduit flows.${standalone ? '' : ' <br />Learn more from <a href="https://unctad.org/topic/investment/foreign-direct-investment-explorer" target="_blank" style="color:inherit">the FDI explorer page</a>.'}`,
+        text: `<em>Source:</em> UN Trade and Development (UNCTAD), World investment report 2026<br /><em>Note:</em> The data includes financial transactions through European economies with high levels of conduit flows.${standalone ? '' : ' Learn more from <a href="https://unctad.org/topic/investment/foreign-direct-investment-explorer" target="_blank" style="color:inherit">the FDI explorer page</a>.'}`,
         verticalAlign: 'bottom',
         x: 0
       },
@@ -347,7 +347,7 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
     area => {
       if (!chartRef.current) return;
       const isSelecting = !selected[area.name];
-      const shouldDeselectWorld = isSelecting && area.name !== 'World' && selected['World'] === true;
+      const shouldDeselectWorld = isSelecting && area.name !== 'World' && selected.World === true;
       chartRef.current.series.forEach((serie, i) => {
         if (serie.name === area.name) {
           chartRef.current.series[i].setVisible(isSelecting, false);
@@ -358,7 +358,7 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
       });
       setSelected(prev => {
         const next = { ...prev, [area.name]: isSelecting };
-        if (shouldDeselectWorld) next['World'] = false;
+        if (shouldDeselectWorld) next.World = false;
         return next;
       });
       toggleLegendItems();

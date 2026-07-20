@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import ButtonAnchor from '@unctad-infovis/general-tools/components/ButtonAnchor.jsx';
+import Image from '@unctad-infovis/general-tools/components/Image.jsx';
 
-import ButtonAnchor from './../general/ButtonAnchor.jsx';
-import Image from './../general/Image.jsx';
+import { useEffect, useRef, useState } from 'react';
 
 import './HeaderChapter.css';
 

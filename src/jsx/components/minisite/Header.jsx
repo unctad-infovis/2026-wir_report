@@ -1,6 +1,6 @@
-import { resolveAsset } from './../../helpers/BasePath';
-import ButtonAnchor from './../general/ButtonAnchor.jsx';
-import ButtonShare from './../general/ButtonShare.jsx';
+import ButtonAnchor from '@unctad-infovis/general-tools/components/ButtonAnchor.jsx';
+import ButtonShare from '@unctad-infovis/general-tools/components/ButtonShare.jsx';
+import { resolveAsset } from '@unctad-infovis/general-tools/helpers/BasePath.js';
 
 import './Header.css';
 
