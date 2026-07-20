@@ -32,6 +32,10 @@
           font-size: var(--un-font-size-normal);
           padding: 8px 20px;
         }
+        @media (max-width: 360px) {
+          font-size: var(--un-font-size-xxxs);
+          padding: 8px 20px;
+        }
       }
     }
 
