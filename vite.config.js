@@ -21,7 +21,7 @@ export default defineConfig(({ command }) => ({
         chunkFileNames: `js/${name}.[name].js`,
         assetFileNames: assetInfo => {
           if (assetInfo.name?.endsWith('.css')) {
-            if (assetInfo.name === 'styles.css') return `css/${name}_fdi_explorer.min.css`;
+            if (assetInfo.name === 'App.css') return `css/${name}_fdi_explorer.min.css`;
             return `css/${name}.min.css`;
           }
           return `assets/[name][extname]`;
