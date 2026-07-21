@@ -187,7 +187,7 @@
                     margin-top: 0;
                   }
                   &:before {
-                    background-image: url('/assets/img/icon_download_white.png');
+                    background-image: url('https://storage.unctad.org/shared-resources/icons/icon_download_white.png');
                     background-size: 100%;
                     content: '';
                     display: block;
