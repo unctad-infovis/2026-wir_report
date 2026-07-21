@@ -237,6 +237,7 @@ const ChartFDIExplorer = ({ introTexts = [], standalone = false }) => {
             x: 64
           }
         },
+        enabled: false,
         filename: 'unctad_world_investment_report_selected_fdi_flows'
       },
       legend: {
