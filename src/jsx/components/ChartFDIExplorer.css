@@ -164,6 +164,9 @@
                     }
                     &.data_type {
                       display: inline;
+                      &.selected {
+                        background-color: var(--un-color-blue);
+                      }
                     }
                   }
                 }
