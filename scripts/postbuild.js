@@ -1,5 +1,5 @@
-const fs = require('node:fs');
-const crypto = require('node:crypto');
+import fs from 'node:fs';
+import crypto from 'node:crypto';
 
 // Fix HTML: convert absolute paths to relative so the site works at any subpath
 for (const p of ['dist/index.html', 'dist/fdi-explorer.html']) {
