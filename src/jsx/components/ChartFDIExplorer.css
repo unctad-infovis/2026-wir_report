@@ -49,11 +49,13 @@
         gap: 10px;
         padding: 0 0 0 5px;
         margin: auto auto;
-        max-width: 1200px;
+        max-width: 1350px;
         overflow-x: auto;
         overflow-y: hidden;
+        width: 100%;
         .left_container,
         .right_container {
+          width: 100%;
           h4 {
             display: inline-block;
             font-size: var(--un-font-size-xl);
@@ -267,11 +269,18 @@
     &.standalone {
       background-color: #fff;
       .container_chart_fdi_explorer {
+        background-color: #f2f8fc;
+        box-sizing: border-box;
         height: auto;
-        min-height: 560px;
+        padding: 20px;
         position: relative;
         .layout {
           color: #333;
+          .right_container {
+            .chart_container {
+              min-height: 465px;
+            }
+          }
         }
       }
     }
@@ -339,9 +348,20 @@
       }
       &.standalone {
         .container_chart_fdi_explorer {
+          min-height: auto;
           .layout {
+            .close_toggle {
+              background-color: #fff;
+              color: #000;
+            }
             .left_container {
-              background: #fff;
+              background: #f2f8fc;
+            }
+            .right_container {
+              .menu_toggle {
+                background-color: #fff;
+                color: #000;
+              }
             }
           }
         }
