@@ -1,3 +1,10 @@
+/* Imported here (rather than JS-imported directly from IndexFDIExplorer.jsx/ChartHeader.jsx) so this
+   CSS is bundled into the same output file as the rest of the shared/standalone styles instead of
+   its own separate chunk — the production embed on unctad.org references a fixed set of filenames,
+   so a new chunk wouldn't be picked up there. */
+@import './IndexFDIExplorer.css';
+@import './components/general/ChartHeader.css';
+
 #app-root-2026-wir_report .app {
   ul {
     box-sizing: border-box;

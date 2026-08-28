@@ -1,4 +1,5 @@
-import './ChartHeader.css';
+// Note: ChartHeader.css is imported via App.css (not here) so it lands in the shared build
+// output rather than its own chunk — see the comment in App.css for why.
 
 export default function ChartHeader({ title, subtitle, large = false }) {
   return (

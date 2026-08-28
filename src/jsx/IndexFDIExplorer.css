@@ -3,6 +3,5 @@
     box-sizing: border-box;
     margin: 0 auto;
     max-width: 1350px;
-    padding: clamp(20px, 4vw, 40px) clamp(10px, 3vw, 20px);
   }
 }
